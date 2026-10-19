@@ -1,0 +1,6 @@
+# Reproduction and regression dependencies for ragged fragment reduction.
+--requirement requirements.txt
+--requirement requirements-dev.txt
+
+pytest>=6.2.4
+ruff>=0.16.10
