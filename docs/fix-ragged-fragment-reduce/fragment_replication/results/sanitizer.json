@@ -1,0 +1,39 @@
+{
+  "width": 100,
+  "layout": "padded_guard",
+  "cases": [
+    {
+      "operation": "copy",
+      "tool": "memcheck",
+      "errors": 0
+    },
+    {
+      "operation": "copy",
+      "tool": "racecheck",
+      "hazards": 0,
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "operation": "reduce",
+      "tool": "memcheck",
+      "errors": 0
+    },
+    {
+      "operation": "reduce",
+      "tool": "racecheck",
+      "hazards": 0,
+      "errors": 0,
+      "warnings": 0
+    }
+  ],
+  "metadata": {
+    "commit": "0176ba1465b12758f41802bf838ddd68d43c9ee9",
+    "tracked_source_clean": true,
+    "native_libraries_sha256": {
+      "libtilelang.so": "2518d5fcfab118cd0522e5fbe57aa70e626a51c6b79a88bb7d4091b2ce5e5f0c",
+      "libtvm_compiler.so": "d761313da71ee5db93dc080cf42ba90677b4853b0750bd6db6fdc5dcbcc03e5a"
+    }
+  },
+  "gpu": "A100"
+}

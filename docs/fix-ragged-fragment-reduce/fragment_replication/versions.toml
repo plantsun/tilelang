@@ -1,0 +1,8 @@
+[baseline]
+commit = "0176ba1465b12758f41802bf838ddd68d43c9ee9"
+
+[experiment]
+gpu = "A100"
+dtype = "float32"
+threads = 128
+widths = [64, 96, 100, 120, 127, 128, 192, 229, 256, 257]

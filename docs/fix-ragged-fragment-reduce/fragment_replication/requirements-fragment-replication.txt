@@ -1,0 +1,21 @@
+--index-url https://pypi.org/simple
+--extra-index-url https://download.pytorch.org/whl/cu124
+
+torch==2.6.0+cu124
+numpy==2.2.6
+ninja==1.13.2
+Cython==3.1.8
+scikit-build-core==1.0.3
+cmake==4.4.3
+patchelf==0.19.1.0
+z3-solver==4.15.4.0
+apache-tvm-ffi==0.1.12
+pytest==9.1.1
+matplotlib==3.10.9
+tomli>=2.0; python_version < "3.11"
+ruff>=0.16.10
+cloudpickle
+ml-dtypes
+psutil
+tqdm>=4.62.3
+typing-extensions>=4.10.0

@@ -130,3 +130,6 @@ maint/host_checks/logs/*
 
 # uv Lockfile
 uv.lock
+
+# Local compiler experiment worktrees and generated output
+/.fragment-replication/

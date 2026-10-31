@@ -1,0 +1,409 @@
+{
+  "metadata": {
+    "commit": "0176ba1465b12758f41802bf838ddd68d43c9ee9",
+    "tracked_source_clean": true,
+    "native_libraries_sha256": {
+      "libtilelang.so": "2518d5fcfab118cd0522e5fbe57aa70e626a51c6b79a88bb7d4091b2ce5e5f0c",
+      "libtvm_compiler.so": "d761313da71ee5db93dc080cf42ba90677b4853b0750bd6db6fdc5dcbcc03e5a"
+    }
+  },
+  "candidates": [
+    {
+      "width": 96,
+      "candidate": "linear_floor",
+      "fragment_width": 96,
+      "replicate_extent": 1,
+      "thread_extent": 96,
+      "slots_per_thread": 1,
+      "forward_thread": "_j",
+      "forward_index": [
+        "0"
+      ],
+      "fragment": "Fragment((1, 96) -> (1,), replicate: 1, thread: 96, forward_thread: _j, forward_index: (0,))",
+      "coverage": true,
+      "threads_in_cta": true,
+      "no_physical_collisions": true,
+      "valid_elements_per_thread_histogram": {
+        "0": 32,
+        "1": 96
+      },
+      "storage_density": 1.0,
+      "padding_slots_in_cta": 32,
+      "inverse": "Layout((1, 96) -> (1, 96, 1), transform: (_i, _j) -> (0, _j, 0))",
+      "inverse_roundtrip": true,
+      "inverse_mismatches": []
+    },
+    {
+      "width": 96,
+      "candidate": "linear_ceil",
+      "fragment_width": 96,
+      "replicate_extent": 2,
+      "thread_extent": 192,
+      "slots_per_thread": 1,
+      "forward_thread": "_rep * 96 + _j",
+      "forward_index": [
+        "0"
+      ],
+      "fragment": "Fragment((1, 96) -> (1,), replicate: 2, thread: 192, forward_thread: _rep * 96 + _j, forward_index: (0,))",
+      "coverage": true,
+      "threads_in_cta": false,
+      "no_physical_collisions": true,
+      "valid_elements_per_thread_histogram": {
+        "1": 128
+      },
+      "storage_density": 1.0,
+      "padding_slots_in_cta": -64,
+      "inverse": "Layout((1, 192) -> (1, 96, 2), transform: (_i, _j) -> (0, _j % 96, _j // 96))",
+      "inverse_roundtrip": true,
+      "inverse_mismatches": []
+    },
+    {
+      "width": 96,
+      "candidate": "warp",
+      "fragment_width": 96,
+      "replicate_extent": 4,
+      "thread_extent": 128,
+      "slots_per_thread": 3,
+      "forward_thread": "_rep * 32 + _j % 32",
+      "forward_index": [
+        "_j // 32"
+      ],
+      "fragment": "Fragment((1, 96) -> (3,), replicate: 4, thread: 128, forward_thread: _rep * 32 + _j % 32, forward_index: (_j // 32,))",
+      "coverage": true,
+      "threads_in_cta": true,
+      "no_physical_collisions": true,
+      "valid_elements_per_thread_histogram": {
+        "3": 128
+      },
+      "storage_density": 1.0,
+      "padding_slots_in_cta": 0,
+      "inverse": "Layout((3, 128) -> (1, 96, 4), transform: (_i, _j) -> (0, _i * 32 + _j % 32, _j // 32))",
+      "inverse_roundtrip": true,
+      "inverse_mismatches": []
+    },
+    {
+      "width": 96,
+      "candidate": "padded_warp",
+      "fragment_width": 96,
+      "replicate_extent": 4,
+      "thread_extent": 128,
+      "slots_per_thread": 3,
+      "forward_thread": "_rep * 32 + _j % 32",
+      "forward_index": [
+        "_j // 32"
+      ],
+      "fragment": "Fragment((1, 96) -> (3,), replicate: 4, thread: 128, forward_thread: _rep * 32 + _j % 32, forward_index: (_j // 32,))",
+      "coverage": true,
+      "threads_in_cta": true,
+      "no_physical_collisions": true,
+      "valid_elements_per_thread_histogram": {
+        "3": 128
+      },
+      "storage_density": 1.0,
+      "padding_slots_in_cta": 0,
+      "inverse": "Layout((3, 128) -> (1, 96, 4), transform: (_i, _j) -> (0, _i * 32 + _j % 32, _j // 32))",
+      "inverse_roundtrip": true,
+      "inverse_mismatches": []
+    },
+    {
+      "width": 100,
+      "candidate": "linear_floor",
+      "fragment_width": 100,
+      "replicate_extent": 1,
+      "thread_extent": 100,
+      "slots_per_thread": 1,
+      "forward_thread": "_j",
+      "forward_index": [
+        "0"
+      ],
+      "fragment": "Fragment((1, 100) -> (1,), replicate: 1, thread: 100, forward_thread: _j, forward_index: (0,))",
+      "coverage": true,
+      "threads_in_cta": true,
+      "no_physical_collisions": true,
+      "valid_elements_per_thread_histogram": {
+        "0": 28,
+        "1": 100
+      },
+      "storage_density": 1.0,
+      "padding_slots_in_cta": 28,
+      "inverse": "Layout((1, 100) -> (1, 100, 1), transform: (_i, _j) -> (0, _j, 0))",
+      "inverse_roundtrip": true,
+      "inverse_mismatches": []
+    },
+    {
+      "width": 100,
+      "candidate": "linear_ceil",
+      "fragment_width": 100,
+      "replicate_extent": 2,
+      "thread_extent": 200,
+      "slots_per_thread": 1,
+      "forward_thread": "_rep * 100 + _j",
+      "forward_index": [
+        "0"
+      ],
+      "fragment": "Fragment((1, 100) -> (1,), replicate: 2, thread: 200, forward_thread: _rep * 100 + _j, forward_index: (0,))",
+      "coverage": true,
+      "threads_in_cta": false,
+      "no_physical_collisions": true,
+      "valid_elements_per_thread_histogram": {
+        "1": 128
+      },
+      "storage_density": 1.0,
+      "padding_slots_in_cta": -72,
+      "inverse": "Layout((1, 200) -> (1, 100, 2), transform: (_i, _j) -> (0, _j % 100, _j // 100))",
+      "inverse_roundtrip": true,
+      "inverse_mismatches": []
+    },
+    {
+      "width": 100,
+      "candidate": "warp",
+      "fragment_width": 100,
+      "replicate_extent": 4,
+      "thread_extent": 128,
+      "slots_per_thread": 4,
+      "forward_thread": "_rep * 32 + _j % 32",
+      "forward_index": [
+        "_j // 32"
+      ],
+      "fragment": "Fragment((1, 100) -> (4,), replicate: 4, thread: 128, forward_thread: _rep * 32 + _j % 32, forward_index: (_j // 32,))",
+      "coverage": true,
+      "threads_in_cta": true,
+      "no_physical_collisions": true,
+      "valid_elements_per_thread_histogram": {
+        "3": 112,
+        "4": 16
+      },
+      "storage_density": 0.78125,
+      "padding_slots_in_cta": 112,
+      "inverse_roundtrip": false,
+      "inverse_error": [
+        "Layout Layout((1, 100, 4) -> (4, 128), transform: (_i, _j, _k) -> (_j // 32, _k * 32 + _j % 32)) has errors: (\"The iterations do not traverse full iter space\", \"Index mapping does not form a bijective transform.\")"
+      ]
+    },
+    {
+      "width": 100,
+      "candidate": "padded_warp",
+      "fragment_width": 128,
+      "replicate_extent": 4,
+      "thread_extent": 128,
+      "slots_per_thread": 4,
+      "forward_thread": "_rep * 32 + _j % 32",
+      "forward_index": [
+        "_j // 32"
+      ],
+      "fragment": "Fragment((1, 128) -> (4,), replicate: 4, thread: 128, forward_thread: _rep * 32 + _j % 32, forward_index: (_j // 32,))",
+      "coverage": true,
+      "threads_in_cta": true,
+      "no_physical_collisions": true,
+      "valid_elements_per_thread_histogram": {
+        "3": 112,
+        "4": 16
+      },
+      "storage_density": 1.0,
+      "padding_slots_in_cta": 112,
+      "inverse": "Layout((4, 128) -> (1, 128, 4), transform: (_i, _j) -> (0, _i * 32 + _j % 32, _j // 32))",
+      "inverse_roundtrip": true,
+      "inverse_mismatches": []
+    },
+    {
+      "width": 120,
+      "candidate": "linear_floor",
+      "fragment_width": 120,
+      "replicate_extent": 1,
+      "thread_extent": 120,
+      "slots_per_thread": 1,
+      "forward_thread": "_j",
+      "forward_index": [
+        "0"
+      ],
+      "fragment": "Fragment((1, 120) -> (1,), replicate: 1, thread: 120, forward_thread: _j, forward_index: (0,))",
+      "coverage": true,
+      "threads_in_cta": true,
+      "no_physical_collisions": true,
+      "valid_elements_per_thread_histogram": {
+        "0": 8,
+        "1": 120
+      },
+      "storage_density": 1.0,
+      "padding_slots_in_cta": 8,
+      "inverse": "Layout((1, 120) -> (1, 120, 1), transform: (_i, _j) -> (0, _j, 0))",
+      "inverse_roundtrip": true,
+      "inverse_mismatches": []
+    },
+    {
+      "width": 120,
+      "candidate": "linear_ceil",
+      "fragment_width": 120,
+      "replicate_extent": 2,
+      "thread_extent": 240,
+      "slots_per_thread": 1,
+      "forward_thread": "_rep * 120 + _j",
+      "forward_index": [
+        "0"
+      ],
+      "fragment": "Fragment((1, 120) -> (1,), replicate: 2, thread: 240, forward_thread: _rep * 120 + _j, forward_index: (0,))",
+      "coverage": true,
+      "threads_in_cta": false,
+      "no_physical_collisions": true,
+      "valid_elements_per_thread_histogram": {
+        "1": 128
+      },
+      "storage_density": 1.0,
+      "padding_slots_in_cta": -112,
+      "inverse": "Layout((1, 240) -> (1, 120, 2), transform: (_i, _j) -> (0, _j % 120, _j // 120))",
+      "inverse_roundtrip": true,
+      "inverse_mismatches": []
+    },
+    {
+      "width": 120,
+      "candidate": "warp",
+      "fragment_width": 120,
+      "replicate_extent": 4,
+      "thread_extent": 128,
+      "slots_per_thread": 4,
+      "forward_thread": "_rep * 32 + _j % 32",
+      "forward_index": [
+        "_j // 32"
+      ],
+      "fragment": "Fragment((1, 120) -> (4,), replicate: 4, thread: 128, forward_thread: _rep * 32 + _j % 32, forward_index: (_j // 32,))",
+      "coverage": true,
+      "threads_in_cta": true,
+      "no_physical_collisions": true,
+      "valid_elements_per_thread_histogram": {
+        "3": 32,
+        "4": 96
+      },
+      "storage_density": 0.9375,
+      "padding_slots_in_cta": 32,
+      "inverse_roundtrip": false,
+      "inverse_error": [
+        "Layout Layout((1, 120, 4) -> (4, 128), transform: (_i, _j, _k) -> (_j // 32, _k * 32 + _j % 32)) has errors: (\"The iterations do not traverse full iter space\", \"Index mapping does not form a bijective transform.\")"
+      ]
+    },
+    {
+      "width": 120,
+      "candidate": "padded_warp",
+      "fragment_width": 128,
+      "replicate_extent": 4,
+      "thread_extent": 128,
+      "slots_per_thread": 4,
+      "forward_thread": "_rep * 32 + _j % 32",
+      "forward_index": [
+        "_j // 32"
+      ],
+      "fragment": "Fragment((1, 128) -> (4,), replicate: 4, thread: 128, forward_thread: _rep * 32 + _j % 32, forward_index: (_j // 32,))",
+      "coverage": true,
+      "threads_in_cta": true,
+      "no_physical_collisions": true,
+      "valid_elements_per_thread_histogram": {
+        "3": 32,
+        "4": 96
+      },
+      "storage_density": 1.0,
+      "padding_slots_in_cta": 32,
+      "inverse": "Layout((4, 128) -> (1, 128, 4), transform: (_i, _j) -> (0, _i * 32 + _j % 32, _j // 32))",
+      "inverse_roundtrip": true,
+      "inverse_mismatches": []
+    },
+    {
+      "width": 127,
+      "candidate": "linear_floor",
+      "fragment_width": 127,
+      "replicate_extent": 1,
+      "thread_extent": 127,
+      "slots_per_thread": 1,
+      "forward_thread": "_j",
+      "forward_index": [
+        "0"
+      ],
+      "fragment": "Fragment((1, 127) -> (1,), replicate: 1, thread: 127, forward_thread: _j, forward_index: (0,))",
+      "coverage": true,
+      "threads_in_cta": true,
+      "no_physical_collisions": true,
+      "valid_elements_per_thread_histogram": {
+        "0": 1,
+        "1": 127
+      },
+      "storage_density": 1.0,
+      "padding_slots_in_cta": 1,
+      "inverse": "Layout((1, 127) -> (1, 127, 1), transform: (_i, _j) -> (0, _j, 0))",
+      "inverse_roundtrip": true,
+      "inverse_mismatches": []
+    },
+    {
+      "width": 127,
+      "candidate": "linear_ceil",
+      "fragment_width": 127,
+      "replicate_extent": 2,
+      "thread_extent": 254,
+      "slots_per_thread": 1,
+      "forward_thread": "_rep * 127 + _j",
+      "forward_index": [
+        "0"
+      ],
+      "fragment": "Fragment((1, 127) -> (1,), replicate: 2, thread: 254, forward_thread: _rep * 127 + _j, forward_index: (0,))",
+      "coverage": true,
+      "threads_in_cta": false,
+      "no_physical_collisions": true,
+      "valid_elements_per_thread_histogram": {
+        "1": 128
+      },
+      "storage_density": 1.0,
+      "padding_slots_in_cta": -126,
+      "inverse": "Layout((1, 254) -> (1, 127, 2), transform: (_i, _j) -> (0, _j % 127, _j // 127))",
+      "inverse_roundtrip": true,
+      "inverse_mismatches": []
+    },
+    {
+      "width": 127,
+      "candidate": "warp",
+      "fragment_width": 127,
+      "replicate_extent": 4,
+      "thread_extent": 128,
+      "slots_per_thread": 4,
+      "forward_thread": "_rep * 32 + _j % 32",
+      "forward_index": [
+        "_j // 32"
+      ],
+      "fragment": "Fragment((1, 127) -> (4,), replicate: 4, thread: 128, forward_thread: _rep * 32 + _j % 32, forward_index: (_j // 32,))",
+      "coverage": true,
+      "threads_in_cta": true,
+      "no_physical_collisions": true,
+      "valid_elements_per_thread_histogram": {
+        "3": 4,
+        "4": 124
+      },
+      "storage_density": 0.9921875,
+      "padding_slots_in_cta": 4,
+      "inverse_roundtrip": false,
+      "inverse_error": [
+        "Layout Layout((1, 127, 4) -> (4, 128), transform: (_i, _j, _k) -> (_j // 32, _k * 32 + _j % 32)) has errors: (\"The iterations do not traverse full iter space\", \"Index mapping does not form a bijective transform.\")"
+      ]
+    },
+    {
+      "width": 127,
+      "candidate": "padded_warp",
+      "fragment_width": 128,
+      "replicate_extent": 4,
+      "thread_extent": 128,
+      "slots_per_thread": 4,
+      "forward_thread": "_rep * 32 + _j % 32",
+      "forward_index": [
+        "_j // 32"
+      ],
+      "fragment": "Fragment((1, 128) -> (4,), replicate: 4, thread: 128, forward_thread: _rep * 32 + _j % 32, forward_index: (_j // 32,))",
+      "coverage": true,
+      "threads_in_cta": true,
+      "no_physical_collisions": true,
+      "valid_elements_per_thread_histogram": {
+        "3": 4,
+        "4": 124
+      },
+      "storage_density": 1.0,
+      "padding_slots_in_cta": 4,
+      "inverse": "Layout((4, 128) -> (1, 128, 4), transform: (_i, _j) -> (0, _i * 32 + _j % 32, _j // 32))",
+      "inverse_roundtrip": true,
+      "inverse_mismatches": []
+    }
+  ]
+}
