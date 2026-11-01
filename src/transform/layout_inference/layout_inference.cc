@@ -1514,6 +1514,86 @@ private:
           }
         }
       }
+      if (!has_best &&
+          steering_.FallbackSeeds(members, infer_list_, thread_bounds_vec_)
+              .empty()) {
+        // Retry an otherwise unsolved component with one warp-striped,
+        // replicated fragment seed. This is a generic ownership candidate:
+        // each warp owns the complete flattened buffer. Only static shapes
+        // exactly tiled by a warp are considered, so no padded inverse or
+        // masked memory access is introduced. Existing layouts, including
+        // user annotations, are never replaced.
+        if (TargetIsCuda(target_)) {
+          int64_t warp_size =
+              target_->GetAttr<Integer>("thread_warp_size", Integer(32))
+                  .value()
+                  ->value;
+          auto candidate_buffers = components_buffers[root];
+          std::stable_sort(candidate_buffers.begin(), candidate_buffers.end(),
+                           [](const Buffer &a, const Buffer &b) {
+                             return a->name < b->name;
+                           });
+          for (const Buffer &buffer : candidate_buffers) {
+            if (layout_map.count(buffer) || !IsFragmentBuffer(buffer) ||
+                IsReducerV2Buffer(buffer) || buffer->shape.empty()) {
+              continue;
+            }
+            // Seeding bypasses normal alias propagation and the special
+            // PartialFragment lattice, so keep those cases on their existing
+            // inference paths.
+            if (buffer_data_to_buffers_.count(buffer->data) &&
+                buffer_data_to_buffers_[buffer->data].size() > 1) {
+              continue;
+            }
+            int64_t size = 1;
+            PrimExpr flat = 0;
+            bool static_shape = true;
+            for (size_t i = 0; i < buffer->shape.size(); ++i) {
+              const int64_t *dim = as_const_int(buffer->shape[i]);
+              if (!dim || *dim <= 0 || *dim > 4096 || size > 4096 / *dim) {
+                static_shape = false;
+                break;
+              }
+              size *= *dim;
+              flat = flat * buffer->shape[i] + InputPlaceholder(i);
+            }
+            const auto &users = use_list_.at(buffer);
+            const Range &bounds = thread_bounds_vec_[users.front()];
+            const int64_t *threads = as_const_int(bounds->extent);
+            bool same_bounds = true;
+            for (int user : users) {
+              const Range &other = thread_bounds_vec_[user];
+              if (!analyzer_.CanProveEqual(bounds->min, other->min) ||
+                  !analyzer_.CanProveEqual(bounds->extent, other->extent)) {
+                same_bounds = false;
+                break;
+              }
+            }
+            if (!static_shape || warp_size <= 0 || size <= warp_size ||
+                size % warp_size != 0 || !threads || *threads <= warp_size ||
+                *threads % warp_size != 0 || !same_bounds) {
+              continue;
+            }
+            int warp = static_cast<int>(warp_size);
+            auto candidate =
+                Fragment(buffer->shape, {FloorDiv(flat, warp)},
+                         FloorMod(flat, warp) + ReplicationPlaceholder() * warp,
+                         static_cast<int>(*threads / warp_size), std::nullopt)
+                    ->BindThreadRange(bounds);
+            DLOG(INFO) << "[InferInFreeMode] trying warp-replicated seed for "
+                       << buffer << ": " << candidate->DebugOutput();
+            for (int attempt_root : members) {
+              auto outcome = RunOneAttempt(attempt_root, members, layout_map,
+                                           strict_layout_map,
+                                           {{buffer, candidate}}, *cost_model);
+              if (outcome &&
+                  (!has_best || outcome->cost.BetterThan(best_cost))) {
+                adopt(std::move(*outcome), attempt_root);
+              }
+            }
+          }
+        }
+      }
       if (!has_best) {
         // Reducer-only rescue (dst-steering): the verdict can be an induced
         // narrow layout no consumer ordering can live with (e.g. a consumer

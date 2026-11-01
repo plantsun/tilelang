@@ -1,0 +1,203 @@
+{
+  "device": "A100",
+  "cases": [
+    {
+      "width": 64,
+      "operation": "copy",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 64,
+      "operation": "elementwise",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 64,
+      "operation": "reduce",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 4.76837158203125e-07
+      }
+    },
+    {
+      "width": 96,
+      "operation": "copy",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 96,
+      "operation": "elementwise",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 96,
+      "operation": "reduce",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 100,
+      "operation": "copy",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 100,
+      "operation": "elementwise",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 100,
+      "operation": "reduce",
+      "status": "compile_failure",
+      "error_type": "InternalError"
+    },
+    {
+      "width": 120,
+      "operation": "copy",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 120,
+      "operation": "elementwise",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 120,
+      "operation": "reduce",
+      "status": "compile_failure",
+      "error_type": "InternalError"
+    },
+    {
+      "width": 127,
+      "operation": "copy",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 127,
+      "operation": "elementwise",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 127,
+      "operation": "reduce",
+      "status": "compile_failure",
+      "error_type": "InternalError"
+    },
+    {
+      "width": 128,
+      "operation": "copy",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 128,
+      "operation": "elementwise",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 128,
+      "operation": "reduce",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 1.1920928955078125e-06
+      }
+    },
+    {
+      "width": 256,
+      "operation": "copy",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 256,
+      "operation": "elementwise",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 256,
+      "operation": "reduce",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    }
+  ]
+}
