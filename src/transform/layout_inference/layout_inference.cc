@@ -1341,7 +1341,8 @@ private:
       int attempt_root, const std::vector<int> &members,
       const LayoutMap &base_layout_map, const LayoutMap &strict_layout_map,
       const std::vector<std::pair<Buffer, Fragment>> &seed_layouts,
-      const LayoutCostModel &cost_model, int candidate_vector_size_limit = 0) {
+      const LayoutCostModel &cost_model, int candidate_vector_size_limit = 0,
+      std::string *last_failure = nullptr) {
     auto back_infer_list = BackupInferList();
     LayoutMap tmp_layout_map = base_layout_map;
     // A failed attempt can leave pending propagation work. Keep both the
@@ -1386,6 +1387,9 @@ private:
       outcome =
           AttemptOutcome{BackupInferList(), std::move(tmp_layout_map), cost};
     } else {
+      if (last_failure != nullptr) {
+        *last_failure = failure;
+      }
       DLOG(INFO) << "[InferInFreeMode] attempt root " << attempt_root
                  << " discarded: " << failure;
     }
@@ -1468,6 +1472,7 @@ private:
       AttemptCost best_cost;
       bool has_best = false;
       int best_infer_root = -1;
+      std::string last_failure;
 
       auto adopt = [&](AttemptOutcome &&outcome, int attempt_root) {
         best_infer_list = std::move(outcome.infer_list);
@@ -1497,7 +1502,8 @@ private:
                      << candidate_vector_size_limit << '\n';
           auto outcome = RunOneAttempt(
               attempt_infer_root, members, layout_map, strict_layout_map,
-              /*seed_layouts=*/{}, *cost_model, candidate_vector_size_limit);
+              /*seed_layouts=*/{}, *cost_model, candidate_vector_size_limit,
+              &last_failure);
           if (!outcome) {
             continue;
           }
@@ -1548,12 +1554,14 @@ private:
             int64_t size = 1;
             PrimExpr flat = 0;
             bool static_shape = true;
+            int nonunit_dims = 0;
             for (size_t i = 0; i < buffer->shape.size(); ++i) {
               const int64_t *dim = as_const_int(buffer->shape[i]);
               if (!dim || *dim <= 0 || *dim > 4096 || size > 4096 / *dim) {
                 static_shape = false;
                 break;
               }
+              nonunit_dims += *dim > 1;
               size *= *dim;
               flat = flat * buffer->shape[i] + InputPlaceholder(i);
             }
@@ -1570,7 +1578,9 @@ private:
               }
             }
             if (!static_shape || warp_size <= 0 || size <= warp_size ||
-                size % warp_size != 0 || !threads || *threads <= warp_size ||
+                (size % warp_size != 0 &&
+                 (nonunit_dims != 1 || buffer->shape.size() > 2)) ||
+                !threads || *threads <= warp_size ||
                 *threads % warp_size != 0 || !same_bounds) {
               continue;
             }
@@ -1616,7 +1626,7 @@ private:
           }
         }
       }
-      ICHECK(has_best) << "no available layout found" << '\n';
+      ICHECK(has_best) << "no available layout found" << '\n' << last_failure;
       // Apply the best plan for this component
       infer_list_ = std::move(best_infer_list);
       layout_map = best_layout_map;

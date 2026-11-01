@@ -1604,6 +1604,61 @@ Fragment FragmentNode::CondenseReplicateVar() const {
   std::tie(new_forward_thread, new_thread_replicate) =
       CompressIterator(forward_thread_, ToIterVars(input_iters),
                        ReplicationPlaceholder(), &analyzer);
+  // When a mixed-radix replica domain has a ragged inner extent, iterator
+  // compression can collapse distinct physical owners. Detect one useful
+  // case by exhaustively proving that every logical element is owned by
+  // every thread, and produce its canonical injective representation.
+  const int64_t *old_reps = as_const_int(ReplicateExtent());
+  PrimExpr thread_extent = ThreadExtent();
+  const int64_t *thread_count = as_const_int(thread_extent);
+  const int64_t *new_reps = as_const_int(new_thread_replicate->dom->extent);
+  std::vector<int64_t> dims;
+  int64_t elements = 0;
+  bool rep_in_slot = false;
+  for (const auto &index : forward_index_) {
+    PostOrderVisit(index, [&](const ObjectRef &node) {
+      if (const auto *var = node.as<VarNode>()) {
+        rep_in_slot |= var == ReplicationPlaceholder().get();
+      }
+    });
+  }
+  if (!rep_in_slot && old_reps && thread_count && new_reps &&
+      *thread_count > 0 && *thread_count <= 1024 && *old_reps > *thread_count &&
+      *new_reps < *thread_count &&
+      GetStaticDomain(input_size_, &dims, &elements) && elements > 0 &&
+      *old_reps <= 16384 / elements) {
+    bool all_threads = true;
+    for (int64_t linear = 0; all_threads && linear < elements; ++linear) {
+      auto coordinates = UnflattenCoordinate(linear, dims);
+      Map<Var, PrimExpr> subst;
+      for (size_t i = 0; i < coordinates.size(); ++i) {
+        Var var = InputPlaceholder(i);
+        subst.Set(var, IntImm(var.dtype(), coordinates[i]));
+      }
+      std::vector<bool> seen(static_cast<size_t>(*thread_count), false);
+      for (int64_t rep = 0; rep < *old_reps; ++rep) {
+        subst.Set(ReplicationPlaceholder(),
+                  IntImm(ReplicationPlaceholder().dtype(), rep));
+        auto value = EvaluateConstantInteger(
+            analyzer.Simplify(Substitute(forward_thread_, subst)));
+        if (!value || *value < 0 || *value >= *thread_count) {
+          all_threads = false;
+          break;
+        }
+        seen[static_cast<size_t>(*value)] = true;
+      }
+      for (bool present : seen) {
+        all_threads &= present;
+      }
+    }
+    if (all_threads) {
+      Fragment full(input_size_, forward_index_, ReplicationPlaceholder(),
+                    static_cast<int>(*thread_count), std::nullopt);
+      if (thread_range_.defined())
+        full = full->BindThreadRange(thread_range_);
+      return full;
+    }
+  }
   return Fragment(input_size_, forward_index_, new_forward_thread,
                   new_thread_replicate->dom->extent, new_thread_replicate->var);
 }

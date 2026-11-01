@@ -519,6 +519,30 @@ bool ProveFragmentContains(Fragment small_frag, Fragment large_frag,
   // Derive thread for small_frag.
   auto thread = small_frag->ForwardThread(small_frag_indices, rep_small);
 
+  // Equal, replica-wise physical thread maps prove coverage without
+  // constructing an inverse for a layout with a ragged physical tail.
+  if (analyzer.CanProveEqual(small_frag->ReplicateExtent(),
+                             large_frag->ReplicateExtent())) {
+    auto large_thread =
+        large_frag->ForwardThread(large_frag_indices, rep_small);
+    auto small_absolute = thread;
+    auto large_absolute = large_thread;
+    if (small_frag->ThreadRange().defined())
+      small_absolute = small_absolute + small_frag->ThreadRange()->min;
+    if (large_frag->ThreadRange().defined())
+      large_absolute = large_absolute + large_frag->ThreadRange()->min;
+    if (analyzer.CanProveEqual(small_absolute, large_absolute)) {
+      if (!large_frag->ThreadRange().defined() ||
+          (analyzer.CanProve(large_absolute >=
+                             large_frag->ThreadRange()->min) &&
+           analyzer.CanProve(large_absolute <
+                             large_frag->ThreadRange()->min +
+                                 large_frag->ThreadRange()->extent)))
+        return true;
+      return false;
+    }
+  }
+
   if (large_frag->IsCompletedReplicated()) {
     // ForwardThread is relative to each fragment's bound thread range. Compare
     // in the large fragment's coordinates, including warp-specialized offsets.

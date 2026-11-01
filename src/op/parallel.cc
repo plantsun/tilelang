@@ -548,7 +548,8 @@ LayoutMap ParallelOpNode::InferLayout(const LayoutInferArgs &layout_args,
           << "[FreeInfer] only compute_from_buffer available, choose it.";
     }
     loop_layout_requires_padding_guard_ =
-        selected_plan_candidate && indice_map_.empty();
+        (selected_plan_candidate && indice_map_.empty()) ||
+        (!selected_plan_candidate && loop_layout_requires_padding_guard_);
   } else if (!loop_layout_.defined()) {
     // In non-free mode without a source buffer, if we don't have any layout
     // yet (e.g., no annotation), we have nothing to infer here.
@@ -896,9 +897,20 @@ bool ParallelOpNode::ValidateCandidateAgainstFragments(
     auto fragment = layout_args.layout_map[buffer].as<Fragment>().value();
     std::ostringstream oss;
     bool success = true;
+    auto contains = [&](const Fragment &small, const Fragment &large,
+                        const Array<PrimExpr> &small_indices,
+                        const Array<PrimExpr> &large_indices) {
+      try {
+        return ProveFragmentContains(small, large, small_indices, large_indices,
+                                     analyzer_, check_forward_index);
+      } catch (const NormalizeIterException &) {
+        if (throw_on_error)
+          throw;
+        return false;
+      }
+    };
     if (access.is_read &&
-        !ProveFragmentContains(candidate, fragment, vars, access.indices,
-                               analyzer_, check_forward_index)) {
+        !contains(candidate, fragment, vars, access.indices)) {
       if (throw_on_error) {
         oss << "Layout infer conflict between " << buffer << " and "
             << source_buffer << " in T.Parallel loop:" << '\n'
@@ -911,10 +923,8 @@ bool ParallelOpNode::ValidateCandidateAgainstFragments(
     // allows extra loop threads to write local slots that belong to different
     // logical fragment elements under the buffer layout.
     if (access.is_write &&
-        (!ProveFragmentContains(fragment, candidate, access.indices, vars,
-                                analyzer_, check_forward_index) ||
-         !ProveFragmentContains(candidate, fragment, vars, access.indices,
-                                analyzer_, check_forward_index))) {
+        (!contains(fragment, candidate, access.indices, vars) ||
+         !contains(candidate, fragment, vars, access.indices))) {
       if (throw_on_error) {
         oss << "Layout infer conflict between " << buffer << " and "
             << source_buffer << " in T.Parallel loop:" << '\n'
@@ -970,6 +980,41 @@ Fragment ParallelOpNode::ComputeLoopLayoutFromBuffer(
     try {
       result = Fragment(loop_vars_, {}, loop_var_to_thread, rep_iter)
                    ->BindThreadRange(layout_args.thread_bounds);
+      if (!result->DetectInjective()->errors.empty()) {
+        auto mapped_indices =
+            src_layout->Forward(GetAccessInfo(buffer).indices);
+        auto mapped =
+            Fragment(loop_vars_, mapped_indices, loop_var_to_thread, rep_iter)
+                ->BindThreadRange(layout_args.thread_bounds);
+        if (mapped->DetectInjective(true)->errors.empty()) {
+          // Padded inversion must recover every legal loop coordinate and
+          // replica. Do not use an unproven NoCheck inverse for ownership.
+          try {
+            auto inverse = mapped->InverseWithLevel(true).first;
+            arith::Analyzer proof;
+            Array<PrimExpr> logical;
+            for (const auto &iv : loop_vars_) {
+              proof.Bind(iv->var, iv->dom);
+              logical.push_back(iv->var);
+            }
+            proof.Bind(rep, rep_iter->dom);
+            auto physical = mapped->Forward(logical);
+            physical.push_back(mapped->ForwardThread(logical, rep));
+            auto recovered = inverse->Forward(physical);
+            bool roundtrip = recovered.size() == logical.size() + 1;
+            for (size_t i = 0; roundtrip && i < logical.size(); ++i) {
+              roundtrip = proof.CanProveEqual(recovered[i], logical[i]);
+            }
+            roundtrip = roundtrip && proof.CanProveEqual(recovered.back(), rep);
+            if (roundtrip) {
+              result = mapped;
+              loop_layout_requires_padding_guard_ = true;
+            }
+          } catch (const Error &) {
+            // Fall back to the original candidate and its strict checks.
+          }
+        }
+      }
     } catch (const Error &err) {
       std::ostringstream msg;
       msg << "Layout inference for buffer `" << buffer->name
@@ -1106,7 +1151,9 @@ void ParallelOpNode::BuildReplicationGuardsIfNeeded(
            "in replicated loop layout.";
     return;
   } else {
-    auto inv = loop_layout_->Inverse();
+    auto inv =
+        loop_layout_->InverseWithLevel(loop_layout_requires_padding_guard_)
+            .first;
     Array<PrimExpr> fwd;
     for (size_t i = 0; i < loop_layout_->OutputDim(); i++)
       fwd.push_back(0);

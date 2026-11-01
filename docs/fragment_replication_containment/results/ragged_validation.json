@@ -1,0 +1,22 @@
+{
+  "device": "A100",
+  "implicit_sum": {
+    "widths": [100, 120, 127],
+    "threads": 128,
+    "patterns": ["arange", "ones", "random"],
+    "result": "pass"
+  },
+  "reduction_identities": {
+    "widths": [100, 120, 127],
+    "threads": 128,
+    "operations": ["sum", "min", "max"],
+    "dtypes": ["float32", "float16", "int32"],
+    "inputs": [-2, 2],
+    "result": "pass"
+  },
+  "block_sizes": {"256": "pass", "64": "expected_failure"},
+  "matrix_2x100": {"copy": "expected_failure", "elementwise": "expected_failure", "reduce_axis_0": "compile_failure", "reduce_axis_1": "compile_failure"},
+  "sanitizer": {"widths": [100, 120, 127], "memcheck_errors": 0, "racecheck_errors": 0, "racecheck_hazards": 0},
+  "layout_suite": {"passed": 386, "skipped": 4, "expected_failures": 5, "baseline_failures": 2},
+  "reduction_suite": {"passed": 142, "skipped": 13}
+}

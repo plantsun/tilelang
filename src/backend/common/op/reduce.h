@@ -844,6 +844,55 @@ template <typename Impl> struct ReduceLowerer {
       Array<PrimExpr> src_indice_compressed = reduce_plan.local_src_indices;
       Array<IterVar> src_var_compressed = reduce_plan.local_reduce_vars;
 
+      // A warp-striped source can have a partial final register slot. Its
+      // fragment allocation is rectangular, but some threads never wrote
+      // that slot. Protect the local update using the original logical
+      // extent; skipping the update preserves each reducer's own identity.
+      Optional<PrimExpr> local_valid;
+      if (src_layout->OutputDim() == 1 && src_layout->InputDim() <= 2) {
+        const int64_t *extent = as_const_int(src_layout->InputShape()[op.dim]);
+        int warp = static_cast<int>(
+            lower_args.target->GetAttr<Integer>("thread_warp_size", Integer(32))
+                .value()
+                ->value);
+        bool scalar_output = true;
+        for (size_t i = 0; i < src_layout->InputDim(); ++i) {
+          if (i != static_cast<size_t>(op.dim) &&
+              !analyzer->CanProveEqual(src_layout->InputShape()[i], 1)) {
+            scalar_output = false;
+          }
+        }
+        if (extent && warp > 0 && *extent > 0 && *extent % warp != 0 &&
+            scalar_output) {
+          auto axis = InputPlaceholder(op.dim);
+          auto rep = ReplicationPlaceholder();
+          bool canonical =
+              analyzer->CanProveEqual(src_layout->GetForwardThread(),
+                                      rep * warp + FloorMod(axis, warp)) &&
+              analyzer->CanProveEqual(src_layout->GetForwardIndex()[0],
+                                      FloorDiv(axis, warp));
+          if (canonical) {
+            ICHECK_EQ(src_var_compressed.size(), 1)
+                << "Cannot prove local ownership for a ragged reduction";
+            ICHECK_EQ(src_indice_compressed.size(), 1)
+                << "Cannot prove local ownership for a ragged reduction";
+            ICHECK(analyzer->CanProveEqual(src_indice_compressed[0],
+                                           src_var_compressed[0]->var) &&
+                   analyzer->CanProveEqual(
+                       src_var_compressed[0]->dom->extent,
+                       static_cast<int>((*extent + warp - 1) / warp)))
+                << "Cannot prove local ownership for a ragged reduction";
+            PrimExpr tid = lower_args.thread_index;
+            if (src_layout->ThreadRange().defined()) {
+              tid = tid - src_layout->ThreadRange()->min;
+            }
+            local_valid =
+                src_var_compressed[0]->var * warp + FloorMod(tid, warp) <
+                src_layout->InputShape()[op.dim];
+          }
+        }
+      }
+
       bool can_pack = false;
       bool need_pack_buffer = false;
       bool need_batch_pack_buffer = false;
@@ -851,7 +900,8 @@ template <typename Impl> struct ReduceLowerer {
       Buffer clear_batch_pack_buffer;
       {
         int vsize = Impl::GetPreferredVectorizedSize(op, lower_args.target);
-        if (vsize > 1 && !src_var_compressed.empty()) {
+        if (vsize > 1 && !local_valid.defined() &&
+            !src_var_compressed.empty()) {
           auto *ext = src_var_compressed.back()->dom->extent.as<IntImmNode>();
           if (ext && ext->value >= vsize && ext->value % vsize == 0 &&
               reduce::MakeCodegenReducer(op, vsize).has_value() &&
@@ -938,6 +988,10 @@ template <typename Impl> struct ReduceLowerer {
             reduce::MakeReduce(op, 1, BufferLoad(clear_buffer, red_indices),
                                BufferLoad(src_buffer, src_indice_compressed)),
             red_indices);
+
+        if (local_valid.defined()) {
+          reduce_local = IfThenElse(local_valid.value(), reduce_local);
+        }
 
         for (int i = static_cast<int>(src_layout->OutputDim()) - 1; i >= 0;
              --i) {
