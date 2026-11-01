@@ -1,0 +1,382 @@
+{
+  "cases": [
+    {
+      "width": 64,
+      "operation": "copy",
+      "layout": "implicit",
+      "metadata": {
+        "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+        "tracked_source_clean": true,
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_libraries_sha256": {
+          "libtilelang.so": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+          "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+        }
+      },
+      "gpu": "A100",
+      "status": "passed",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 64,
+      "operation": "elementwise",
+      "layout": "implicit",
+      "metadata": {
+        "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+        "tracked_source_clean": true,
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_libraries_sha256": {
+          "libtilelang.so": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+          "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+        }
+      },
+      "gpu": "A100",
+      "status": "passed",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 64,
+      "operation": "reduce",
+      "layout": "implicit",
+      "metadata": {
+        "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+        "tracked_source_clean": true,
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_libraries_sha256": {
+          "libtilelang.so": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+          "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+        }
+      },
+      "gpu": "A100",
+      "status": "passed",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 4.76837158203125e-07
+      }
+    },
+    {
+      "width": 96,
+      "operation": "copy",
+      "layout": "implicit",
+      "metadata": {
+        "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+        "tracked_source_clean": true,
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_libraries_sha256": {
+          "libtilelang.so": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+          "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+        }
+      },
+      "gpu": "A100",
+      "status": "passed",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 96,
+      "operation": "elementwise",
+      "layout": "implicit",
+      "metadata": {
+        "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+        "tracked_source_clean": true,
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_libraries_sha256": {
+          "libtilelang.so": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+          "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+        }
+      },
+      "gpu": "A100",
+      "status": "passed",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 96,
+      "operation": "reduce",
+      "layout": "implicit",
+      "metadata": {
+        "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+        "tracked_source_clean": true,
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_libraries_sha256": {
+          "libtilelang.so": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+          "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+        }
+      },
+      "gpu": "A100",
+      "status": "failed",
+      "stage": "compile",
+      "error_type": "InternalError",
+      "diagnostic": [
+        "Check failed: (!analyzer->CanProve(dst_layout->ReplicateExtent() > red_layout->ReplicateExtent())) is false: Inconsistent layouts between src and dst in ReduceOp: dst_layout=tl.Fragment(input_size=(1,), forward_index=(0,), forward_thread=_rep, replicate_size=128, thread_range=I.Range(0, 128))red_layout=tl.Fragment(input_size=(1,), forward_index=(0,), forward_thread=_rep, replicate_size=96, thread_range=I.Range(0, 128))"
+      ]
+    },
+    {
+      "width": 100,
+      "operation": "copy",
+      "layout": "implicit",
+      "metadata": {
+        "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+        "tracked_source_clean": true,
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_libraries_sha256": {
+          "libtilelang.so": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+          "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+        }
+      },
+      "gpu": "A100",
+      "status": "passed",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 100,
+      "operation": "elementwise",
+      "layout": "implicit",
+      "metadata": {
+        "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+        "tracked_source_clean": true,
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_libraries_sha256": {
+          "libtilelang.so": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+          "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+        }
+      },
+      "gpu": "A100",
+      "status": "passed",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 100,
+      "operation": "reduce",
+      "layout": "implicit",
+      "metadata": {
+        "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+        "tracked_source_clean": true,
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_libraries_sha256": {
+          "libtilelang.so": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+          "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+        }
+      },
+      "gpu": "A100",
+      "status": "failed",
+      "stage": "compile",
+      "error_type": "InternalError",
+      "diagnostic": [
+        "Check failed: (!analyzer->CanProve(dst_layout->ReplicateExtent() > red_layout->ReplicateExtent())) is false: Inconsistent layouts between src and dst in ReduceOp: dst_layout=tl.Fragment(input_size=(1,), forward_index=(0,), forward_thread=_rep, replicate_size=128, thread_range=I.Range(0, 128))red_layout=tl.Fragment(input_size=(1,), forward_index=(0,), forward_thread=_rep, replicate_size=100, thread_range=I.Range(0, 128))"
+      ]
+    },
+    {
+      "width": 120,
+      "operation": "copy",
+      "layout": "implicit",
+      "metadata": {
+        "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+        "tracked_source_clean": true,
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_libraries_sha256": {
+          "libtilelang.so": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+          "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+        }
+      },
+      "gpu": "A100",
+      "status": "passed",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 120,
+      "operation": "elementwise",
+      "layout": "implicit",
+      "metadata": {
+        "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+        "tracked_source_clean": true,
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_libraries_sha256": {
+          "libtilelang.so": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+          "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+        }
+      },
+      "gpu": "A100",
+      "status": "passed",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 120,
+      "operation": "reduce",
+      "layout": "implicit",
+      "metadata": {
+        "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+        "tracked_source_clean": true,
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_libraries_sha256": {
+          "libtilelang.so": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+          "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+        }
+      },
+      "gpu": "A100",
+      "status": "failed",
+      "stage": "compile",
+      "error_type": "InternalError",
+      "diagnostic": [
+        "Check failed: (!analyzer->CanProve(dst_layout->ReplicateExtent() > red_layout->ReplicateExtent())) is false: Inconsistent layouts between src and dst in ReduceOp: dst_layout=tl.Fragment(input_size=(1,), forward_index=(0,), forward_thread=_rep, replicate_size=128, thread_range=I.Range(0, 128))red_layout=tl.Fragment(input_size=(1,), forward_index=(0,), forward_thread=_rep, replicate_size=120, thread_range=I.Range(0, 128))"
+      ]
+    },
+    {
+      "width": 127,
+      "operation": "copy",
+      "layout": "implicit",
+      "metadata": {
+        "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+        "tracked_source_clean": true,
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_libraries_sha256": {
+          "libtilelang.so": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+          "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+        }
+      },
+      "gpu": "A100",
+      "status": "passed",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 127,
+      "operation": "elementwise",
+      "layout": "implicit",
+      "metadata": {
+        "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+        "tracked_source_clean": true,
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_libraries_sha256": {
+          "libtilelang.so": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+          "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+        }
+      },
+      "gpu": "A100",
+      "status": "passed",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 127,
+      "operation": "reduce",
+      "layout": "implicit",
+      "metadata": {
+        "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+        "tracked_source_clean": true,
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_libraries_sha256": {
+          "libtilelang.so": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+          "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+        }
+      },
+      "gpu": "A100",
+      "status": "failed",
+      "stage": "compile",
+      "error_type": "InternalError",
+      "diagnostic": [
+        "Check failed: (!analyzer->CanProve(dst_layout->ReplicateExtent() > red_layout->ReplicateExtent())) is false: Inconsistent layouts between src and dst in ReduceOp: dst_layout=tl.Fragment(input_size=(1,), forward_index=(0,), forward_thread=_rep, replicate_size=128, thread_range=I.Range(0, 128))red_layout=tl.Fragment(input_size=(1,), forward_index=(0,), forward_thread=_rep, replicate_size=127, thread_range=I.Range(0, 128))"
+      ]
+    },
+    {
+      "width": 128,
+      "operation": "copy",
+      "layout": "implicit",
+      "metadata": {
+        "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+        "tracked_source_clean": true,
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_libraries_sha256": {
+          "libtilelang.so": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+          "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+        }
+      },
+      "gpu": "A100",
+      "status": "passed",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 128,
+      "operation": "elementwise",
+      "layout": "implicit",
+      "metadata": {
+        "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+        "tracked_source_clean": true,
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_libraries_sha256": {
+          "libtilelang.so": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+          "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+        }
+      },
+      "gpu": "A100",
+      "status": "passed",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      }
+    },
+    {
+      "width": 128,
+      "operation": "reduce",
+      "layout": "implicit",
+      "metadata": {
+        "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+        "tracked_source_clean": true,
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_libraries_sha256": {
+          "libtilelang.so": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+          "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+        }
+      },
+      "gpu": "A100",
+      "status": "passed",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 1.1920928955078125e-06
+      }
+    }
+  ]
+}

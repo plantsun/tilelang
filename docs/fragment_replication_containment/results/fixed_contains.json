@@ -1,0 +1,71 @@
+{
+  "metadata": {
+    "commit": "cc903dcb9ed0012d04e784f6c348742cc747bfb9",
+    "tracked_source_clean": false,
+    "tracked_diff_sha256": "222c1b07c5689d0cd9c722d186e927e3bf50c5171d44d59232779e5736f50bec",
+    "native_libraries_sha256": {
+      "libtilelang.so": "d6dd92bd4b28d55358b5b7acb3bb05f90309f5e88e275bdf53cf8dc457337a10",
+      "libtvm_compiler.so": "641912c936c7398b078a66eebb1c4b53aadb5a64f33331aaa6babecb4d80263b"
+    }
+  },
+  "cases": [
+    {
+      "small_extent": 128,
+      "large_extent": 96,
+      "enumerated_subset": false,
+      "compiler_result": false,
+      "mismatch": false
+    },
+    {
+      "small_extent": 96,
+      "large_extent": 128,
+      "enumerated_subset": true,
+      "compiler_result": true,
+      "mismatch": false
+    },
+    {
+      "small_extent": 96,
+      "large_extent": 96,
+      "enumerated_subset": true,
+      "compiler_result": true,
+      "mismatch": false
+    }
+  ],
+  "index_case": {
+    "small_slot": 0,
+    "large_slot": 1,
+    "check_forward_index": true,
+    "expected": false,
+    "compiler_result": false
+  },
+  "guarded_inverse": [
+    {
+      "width": 96,
+      "inverse": "Layout((3, 128) -> (1, 96, 4), transform: (_i, _j) -> (0, _i * 32 + _j % 32, _j // 32))",
+      "valid_physical_slots": 384,
+      "guarded_padding_slots": 0,
+      "roundtrip_mismatches": 0
+    },
+    {
+      "width": 100,
+      "inverse": "Layout((4, 128) -> (1, 128, 4), transform: (_i, _j) -> (0, _i * 32 + _j % 32, _j // 32))",
+      "valid_physical_slots": 400,
+      "guarded_padding_slots": 112,
+      "roundtrip_mismatches": 0
+    },
+    {
+      "width": 120,
+      "inverse": "Layout((4, 128) -> (1, 128, 4), transform: (_i, _j) -> (0, _i * 32 + _j % 32, _j // 32))",
+      "valid_physical_slots": 480,
+      "guarded_padding_slots": 32,
+      "roundtrip_mismatches": 0
+    },
+    {
+      "width": 127,
+      "inverse": "Layout((4, 128) -> (1, 128, 4), transform: (_i, _j) -> (0, _i * 32 + _j % 32, _j // 32))",
+      "valid_physical_slots": 508,
+      "guarded_padding_slots": 4,
+      "roundtrip_mismatches": 0
+    }
+  ]
+}
