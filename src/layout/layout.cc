@@ -4,6 +4,7 @@
  */
 
 #include "layout.h"
+#include <algorithm>
 
 #include <cstdint>
 #include <functional>
@@ -1604,14 +1605,15 @@ Fragment FragmentNode::CondenseReplicateVar() const {
   std::tie(new_forward_thread, new_thread_replicate) =
       CompressIterator(forward_thread_, ToIterVars(input_iters),
                        ReplicationPlaceholder(), &analyzer);
-  // When a mixed-radix replica domain has a ragged inner extent, iterator
-  // compression can collapse distinct physical owners. Detect one useful
-  // case by exhaustively proving that every logical element is owned by
-  // every thread, and produce its canonical injective representation.
+  // Compression may change the set of physical owners when a split has a
+  // ragged extent. For bounded static domains, compare actual owner sets for
+  // every logical coordinate before adopting the compressed layout.
   const int64_t *old_reps = as_const_int(ReplicateExtent());
-  PrimExpr thread_extent = ThreadExtent();
-  const int64_t *thread_count = as_const_int(thread_extent);
   const int64_t *new_reps = as_const_int(new_thread_replicate->dom->extent);
+  if (!old_reps || !new_reps || *old_reps <= 0 || *new_reps <= 0 ||
+      *new_reps > *old_reps) {
+    return GetRef<Fragment>(this);
+  }
   std::vector<int64_t> dims;
   int64_t elements = 0;
   bool rep_in_slot = false;
@@ -1622,45 +1624,113 @@ Fragment FragmentNode::CondenseReplicateVar() const {
       }
     });
   }
-  if (!rep_in_slot && old_reps && thread_count && new_reps &&
-      *thread_count > 0 && *thread_count <= 1024 && *old_reps > *thread_count &&
-      *new_reps < *thread_count &&
-      GetStaticDomain(input_size_, &dims, &elements) && elements > 0 &&
-      *old_reps <= 16384 / elements) {
-    bool all_threads = true;
-    for (int64_t linear = 0; all_threads && linear < elements; ++linear) {
-      auto coordinates = UnflattenCoordinate(linear, dims);
-      Map<Var, PrimExpr> subst;
-      for (size_t i = 0; i < coordinates.size(); ++i) {
-        Var var = InputPlaceholder(i);
-        subst.Set(var, IntImm(var.dtype(), coordinates[i]));
-      }
-      std::vector<bool> seen(static_cast<size_t>(*thread_count), false);
-      for (int64_t rep = 0; rep < *old_reps; ++rep) {
-        subst.Set(ReplicationPlaceholder(),
-                  IntImm(ReplicationPlaceholder().dtype(), rep));
-        auto value = EvaluateConstantInteger(
-            analyzer.Simplify(Substitute(forward_thread_, subst)));
-        if (!value || *value < 0 || *value >= *thread_count) {
-          all_threads = false;
-          break;
-        }
-        seen[static_cast<size_t>(*value)] = true;
-      }
-      for (bool present : seen) {
-        all_threads &= present;
-      }
+  if (rep_in_slot) {
+    return GetRef<Fragment>(this);
+  }
+  PrimExpr normalized_new_thread =
+      Substitute(new_forward_thread,
+                 {{new_thread_replicate->var, ReplicationPlaceholder()}});
+  {
+    arith::Analyzer proof;
+    for (size_t i = 0; i < input_size_.size(); ++i)
+      proof.Bind(InputPlaceholder(i), Range(0, input_size_[i]));
+    proof.Bind(ReplicationPlaceholder(), Range(0, ReplicateExtent()));
+    PrimExpr cyclic =
+        Substitute(normalized_new_thread,
+                   {{ReplicationPlaceholder(),
+                     FloorMod(ReplicationPlaceholder(), Integer(*new_reps))}});
+    bool proven = proof.CanProveEqual(forward_thread_, cyclic);
+    if (!proven && *old_reps % *new_reps == 0) {
+      PrimExpr blocked = Substitute(
+          normalized_new_thread, {{ReplicationPlaceholder(),
+                                   FloorDiv(ReplicationPlaceholder(),
+                                            Integer(*old_reps / *new_reps))}});
+      proven = proof.CanProveEqual(forward_thread_, blocked);
     }
-    if (all_threads) {
-      Fragment full(input_size_, forward_index_, ReplicationPlaceholder(),
-                    static_cast<int>(*thread_count), std::nullopt);
+    if (proven) {
+      Fragment result(input_size_, forward_index_, new_forward_thread,
+                      new_thread_replicate->dom->extent,
+                      new_thread_replicate->var);
       if (thread_range_.defined())
-        full = full->BindThreadRange(thread_range_);
-      return full;
+        result = result->BindThreadRange(thread_range_);
+      return result;
     }
   }
-  return Fragment(input_size_, forward_index_, new_forward_thread,
-                  new_thread_replicate->dom->extent, new_thread_replicate->var);
+  if (*new_reps >= *old_reps ||
+      !GetStaticDomain(input_size_, &dims, &elements) || elements <= 0 ||
+      *old_reps > 16384 / elements) {
+    return GetRef<Fragment>(this);
+  }
+  PrimExpr base =
+      Substitute(forward_thread_, {{ReplicationPlaceholder(), Integer(0)}});
+  bool equivalent = true;
+  bool affine = true;
+  int64_t owner_count = -1;
+  int64_t owner_stride = -1;
+  for (int64_t linear = 0; linear < elements; ++linear) {
+    auto coordinates = UnflattenCoordinate(linear, dims);
+    Map<Var, PrimExpr> subst;
+    for (size_t i = 0; i < coordinates.size(); ++i) {
+      Var var = InputPlaceholder(i);
+      subst.Set(var, IntImm(var.dtype(), coordinates[i]));
+    }
+    auto collect = [&](const PrimExpr &expr, Var rep_var,
+                       int64_t count) -> std::optional<std::vector<int64_t>> {
+      std::vector<int64_t> owners;
+      owners.reserve(static_cast<size_t>(count));
+      for (int64_t rep = 0; rep < count; ++rep) {
+        subst.Set(rep_var, IntImm(rep_var.dtype(), rep));
+        PrimExpr substituted = Substitute(expr, subst);
+        auto value = EvaluateConstantInteger(substituted);
+        if (!value)
+          value = EvaluateConstantInteger(analyzer.Simplify(substituted));
+        if (!value)
+          return std::nullopt;
+        owners.push_back(*value);
+      }
+      std::sort(owners.begin(), owners.end());
+      owners.erase(std::unique(owners.begin(), owners.end()), owners.end());
+      return owners;
+    };
+    auto original =
+        collect(forward_thread_, ReplicationPlaceholder(), *old_reps);
+    auto compressed =
+        collect(normalized_new_thread, ReplicationPlaceholder(), *new_reps);
+    if (!original || !compressed || original->empty())
+      return GetRef<Fragment>(this);
+    equivalent &= *original == *compressed;
+    auto base_value =
+        EvaluateConstantInteger(analyzer.Simplify(Substitute(base, subst)));
+    int64_t stride = original->size() > 1 ? (*original)[1] - (*original)[0] : 1;
+    if (!base_value || *base_value != original->front() || stride <= 0 ||
+        (owner_count >= 0 &&
+         owner_count != static_cast<int64_t>(original->size())) ||
+        (owner_stride >= 0 && owner_stride != stride)) {
+      affine = false;
+    }
+    for (size_t i = 1; i < original->size(); ++i) {
+      if ((*original)[i] - (*original)[i - 1] != stride)
+        affine = false;
+    }
+    owner_count = static_cast<int64_t>(original->size());
+    owner_stride = stride;
+  }
+  if (!equivalent) {
+    if (!affine || owner_count <= 0 || owner_count > INT32_MAX)
+      return GetRef<Fragment>(this);
+    Fragment canonical(input_size_, forward_index_,
+                       base + ReplicationPlaceholder() * Integer(owner_stride),
+                       Integer(owner_count), std::nullopt);
+    if (thread_range_.defined())
+      canonical = canonical->BindThreadRange(thread_range_);
+    return canonical;
+  }
+  Fragment compressed(input_size_, forward_index_, new_forward_thread,
+                      new_thread_replicate->dom->extent,
+                      new_thread_replicate->var);
+  if (thread_range_.defined())
+    compressed = compressed->BindThreadRange(thread_range_);
+  return compressed;
 }
 
 std::pair<Fragment, PrimExpr>

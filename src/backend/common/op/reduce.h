@@ -393,6 +393,7 @@ struct ReduceOwnershipPlan {
   Array<PrimExpr> local_src_indices;
   Array<IterVar> local_reduce_vars;
   std::vector<ThreadReduceStep> thread_steps;
+  Optional<PrimExpr> local_valid;
 };
 
 inline std::vector<ThreadReduceStep>
@@ -564,11 +565,72 @@ inline std::pair<PrimExpr, IterVar> BuildLocalReduceIterator(
   return {analyzer->Simplify(cur_expr), cur_iter_var};
 }
 
-inline ReduceOwnershipPlan
-MakeReduceOwnershipPlan(const Array<PrimExpr> &src_indices,
-                        const PrimExpr &src_thread,
-                        const Array<IterVar> &src_vars, const Var &reduce_var,
-                        arith::Analyzer *analyzer) {
+// Derive a valid-domain predicate from the same thread-owned reduction digit
+// used to build the local iteration plan. An incomplete final digit cannot
+// safely read every rectangular register slot. This proof currently covers
+// one-dimensional scalar-output layouts whose local slot is rv / factor.
+inline Optional<PrimExpr> BuildLocalValidity(
+    const Fragment &src_layout, int axis, const PrimExpr &src_thread,
+    const Array<PrimExpr> &src_indices, const Array<IterVar> &src_vars,
+    const Var &reduce_var, const Array<PrimExpr> &local_src_indices,
+    const Array<IterVar> &local_reduce_vars,
+    const std::vector<ThreadReduceStep> &steps, const PrimExpr &thread_index,
+    arith::Analyzer *analyzer) {
+  if (src_layout->OutputDim() != 1 || steps.empty()) {
+    return std::nullopt;
+  }
+  for (size_t i = 0; i < src_layout->InputDim(); ++i) {
+    if (i != static_cast<size_t>(axis) &&
+        !analyzer->CanProveEqual(src_layout->InputShape()[i], 1)) {
+      return std::nullopt;
+    }
+  }
+  const int64_t *width = as_const_int(src_layout->InputShape()[axis]);
+  int64_t factor = ThreadOwnedReduceFactor(steps);
+  if (width == nullptr || *width <= 0 || factor <= 1 || *width % factor == 0) {
+    return std::nullopt;
+  }
+  ICHECK_EQ(steps.size(), 1)
+      << "Cannot prove local ownership for a ragged reduction";
+  const auto &step = steps.front();
+  ICHECK_EQ(step.lower_factor, 1)
+      << "Cannot prove local ownership for a ragged reduction";
+  ICHECK_GT(step.scale, 0);
+  ICHECK_EQ(src_indices.size(), 1);
+  ICHECK_EQ(local_src_indices.size(), 1);
+  ICHECK_EQ(local_reduce_vars.size(), 1);
+
+  arith::Analyzer proof;
+  for (const auto &iv : src_vars) {
+    proof.Bind(iv->var, iv->dom);
+  }
+  proof.Bind(ReplicationPlaceholder(), Range(0, src_layout->ReplicateExtent()));
+  PrimExpr factor_expr = make_const(reduce_var.dtype(), factor);
+  PrimExpr lane_in_layout =
+      FloorMod(FloorDiv(src_thread, step.scale), step.extent);
+  ICHECK(
+      proof.CanProveEqual(lane_in_layout, FloorMod(reduce_var, factor_expr)) &&
+      proof.CanProveEqual(src_indices[0], FloorDiv(reduce_var, factor_expr)) &&
+      analyzer->CanProveEqual(local_src_indices[0],
+                              local_reduce_vars[0]->var) &&
+      analyzer->CanProveEqual(
+          local_reduce_vars[0]->dom->extent,
+          Integer(*width / factor + (*width % factor != 0))))
+      << "Cannot prove local ownership for a ragged reduction";
+  PrimExpr tid = thread_index;
+  if (src_layout->ThreadRange().defined()) {
+    tid = tid - src_layout->ThreadRange()->min;
+  }
+  PrimExpr lane = FloorMod(FloorDiv(tid, step.scale), step.extent);
+  return local_reduce_vars[0]->var * factor_expr + lane <
+         src_layout->InputShape()[axis];
+}
+
+inline ReduceOwnershipPlan MakeReduceOwnershipPlan(
+    const Array<PrimExpr> &src_indices, const PrimExpr &src_thread,
+    const Array<IterVar> &src_vars, const Var &reduce_var,
+    const Fragment &src_layout, int axis, const PrimExpr &thread_index,
+    arith::Analyzer *analyzer) {
   // Use src_thread as the single source of truth for thread-owned reduce
   // splits.  These steps are later used verbatim to emit scalar or batched
   // AllReduce, so the local loop must not enumerate the same split again.
@@ -590,8 +652,12 @@ MakeReduceOwnershipPlan(const Array<PrimExpr> &src_indices,
     local_reduce_vars.push_back(var);
   }
 
-  return ReduceOwnershipPlan{local_src_indices, local_reduce_vars,
-                             thread_steps};
+  auto local_valid =
+      BuildLocalValidity(src_layout, axis, src_thread, src_indices, src_vars,
+                         reduce_var, local_src_indices, local_reduce_vars,
+                         thread_steps, thread_index, analyzer);
+  return ReduceOwnershipPlan{local_src_indices, local_reduce_vars, thread_steps,
+                             local_valid};
 }
 
 inline PrimExpr MakeUpdate(const ReduceOpNode &op, PrimExpr dst_val,
@@ -797,7 +863,8 @@ template <typename Impl> struct ReduceLowerer {
           src_vars.Map([](const auto &iv) { return PrimExpr(iv->var); }), {});
 
       auto reduce_plan = reduce::MakeReduceOwnershipPlan(
-          src_indices, src_thread, src_vars, src_vars[op.dim]->var, analyzer);
+          src_indices, src_thread, src_vars, src_vars[op.dim]->var, src_layout,
+          op.dim, lower_args.thread_index, analyzer);
 
       Array<Stmt> stmts;
 
@@ -844,54 +911,7 @@ template <typename Impl> struct ReduceLowerer {
       Array<PrimExpr> src_indice_compressed = reduce_plan.local_src_indices;
       Array<IterVar> src_var_compressed = reduce_plan.local_reduce_vars;
 
-      // A warp-striped source can have a partial final register slot. Its
-      // fragment allocation is rectangular, but some threads never wrote
-      // that slot. Protect the local update using the original logical
-      // extent; skipping the update preserves each reducer's own identity.
-      Optional<PrimExpr> local_valid;
-      if (src_layout->OutputDim() == 1 && src_layout->InputDim() <= 2) {
-        const int64_t *extent = as_const_int(src_layout->InputShape()[op.dim]);
-        int warp = static_cast<int>(
-            lower_args.target->GetAttr<Integer>("thread_warp_size", Integer(32))
-                .value()
-                ->value);
-        bool scalar_output = true;
-        for (size_t i = 0; i < src_layout->InputDim(); ++i) {
-          if (i != static_cast<size_t>(op.dim) &&
-              !analyzer->CanProveEqual(src_layout->InputShape()[i], 1)) {
-            scalar_output = false;
-          }
-        }
-        if (extent && warp > 0 && *extent > 0 && *extent % warp != 0 &&
-            scalar_output) {
-          auto axis = InputPlaceholder(op.dim);
-          auto rep = ReplicationPlaceholder();
-          bool canonical =
-              analyzer->CanProveEqual(src_layout->GetForwardThread(),
-                                      rep * warp + FloorMod(axis, warp)) &&
-              analyzer->CanProveEqual(src_layout->GetForwardIndex()[0],
-                                      FloorDiv(axis, warp));
-          if (canonical) {
-            ICHECK_EQ(src_var_compressed.size(), 1)
-                << "Cannot prove local ownership for a ragged reduction";
-            ICHECK_EQ(src_indice_compressed.size(), 1)
-                << "Cannot prove local ownership for a ragged reduction";
-            ICHECK(analyzer->CanProveEqual(src_indice_compressed[0],
-                                           src_var_compressed[0]->var) &&
-                   analyzer->CanProveEqual(
-                       src_var_compressed[0]->dom->extent,
-                       static_cast<int>((*extent + warp - 1) / warp)))
-                << "Cannot prove local ownership for a ragged reduction";
-            PrimExpr tid = lower_args.thread_index;
-            if (src_layout->ThreadRange().defined()) {
-              tid = tid - src_layout->ThreadRange()->min;
-            }
-            local_valid =
-                src_var_compressed[0]->var * warp + FloorMod(tid, warp) <
-                src_layout->InputShape()[op.dim];
-          }
-        }
-      }
+      Optional<PrimExpr> local_valid = reduce_plan.local_valid;
 
       bool can_pack = false;
       bool need_pack_buffer = false;

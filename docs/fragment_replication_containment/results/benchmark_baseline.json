@@ -1,0 +1,889 @@
+{
+  "device": "A100",
+  "graph_iterations": 100,
+  "timing_repeats": 10,
+  "samples": [
+    {
+      "width": 96,
+      "layout": "implicit",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1549.2824208922684,
+      "status": "failed",
+      "stage": "compile",
+      "error_type": "InternalError",
+      "compiler": "baseline",
+      "sample": 0
+    },
+    {
+      "width": 96,
+      "layout": "implicit",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1579.6737971249968,
+      "status": "failed",
+      "stage": "compile",
+      "error_type": "InternalError",
+      "compiler": "baseline",
+      "sample": 1
+    },
+    {
+      "width": 96,
+      "layout": "implicit",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1558.1307720858604,
+      "status": "failed",
+      "stage": "compile",
+      "error_type": "InternalError",
+      "compiler": "baseline",
+      "sample": 2
+    },
+    {
+      "width": 96,
+      "layout": "warp",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1357.3473358992487,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 0
+      },
+      "graph_latency_us": [
+        1.8943999707698822,
+        1.525759994983673,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.5052799880504608,
+        1.4847999811172485,
+        1.4950400590896606
+      ],
+      "compiler": "baseline",
+      "sample": 0
+    },
+    {
+      "width": 96,
+      "layout": "warp",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1317.111943848431,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 0
+      },
+      "graph_latency_us": [
+        1.730560064315796,
+        1.4950400590896606,
+        1.4847999811172485,
+        1.4745600521564484,
+        1.4745600521564484,
+        1.4745600521564484,
+        1.4950400590896606,
+        1.454080045223236,
+        1.454080045223236,
+        1.4643199741840363
+      ],
+      "compiler": "baseline",
+      "sample": 1
+    },
+    {
+      "width": 96,
+      "layout": "warp",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1358.5786810144782,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 0
+      },
+      "graph_latency_us": [
+        1.8432000279426575,
+        1.5360000729560852,
+        1.5564799308776855,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.5360000729560852,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.5052799880504608
+      ],
+      "compiler": "baseline",
+      "sample": 2
+    },
+    {
+      "width": 100,
+      "layout": "implicit",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1456.9700141437352,
+      "status": "failed",
+      "stage": "compile",
+      "error_type": "InternalError",
+      "compiler": "baseline",
+      "sample": 0
+    },
+    {
+      "width": 100,
+      "layout": "implicit",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1571.3287119287997,
+      "status": "failed",
+      "stage": "compile",
+      "error_type": "InternalError",
+      "compiler": "baseline",
+      "sample": 1
+    },
+    {
+      "width": 100,
+      "layout": "implicit",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1542.5999460276216,
+      "status": "failed",
+      "stage": "compile",
+      "error_type": "InternalError",
+      "compiler": "baseline",
+      "sample": 2
+    },
+    {
+      "width": 100,
+      "layout": "guarded",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1394.80143901892,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 9.5367431640625e-7
+      },
+      "graph_latency_us": [
+        1.9046400487422943,
+        1.5360000729560852,
+        1.515520066022873,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.5052799880504608
+      ],
+      "compiler": "baseline",
+      "sample": 0
+    },
+    {
+      "width": 100,
+      "layout": "guarded",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1386.1055809538811,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 9.5367431640625e-7
+      },
+      "graph_latency_us": [
+        2.0070399343967438,
+        1.5769599378108978,
+        1.5360000729560852,
+        1.515520066022873,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.515520066022873,
+        1.515520066022873
+      ],
+      "compiler": "baseline",
+      "sample": 1
+    },
+    {
+      "width": 100,
+      "layout": "guarded",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1437.099555041641,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 9.5367431640625e-7
+      },
+      "graph_latency_us": [
+        1.7817600071430206,
+        1.5052799880504608,
+        1.4643199741840363,
+        1.4643199741840363,
+        1.454080045223236,
+        1.4643199741840363,
+        1.454080045223236,
+        1.454080045223236,
+        1.454080045223236,
+        1.4643199741840363
+      ],
+      "compiler": "baseline",
+      "sample": 2
+    },
+    {
+      "width": 120,
+      "layout": "implicit",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1384.0937740169466,
+      "status": "failed",
+      "stage": "compile",
+      "error_type": "InternalError",
+      "compiler": "baseline",
+      "sample": 0
+    },
+    {
+      "width": 120,
+      "layout": "implicit",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1552.307000849396,
+      "status": "failed",
+      "stage": "compile",
+      "error_type": "InternalError",
+      "compiler": "baseline",
+      "sample": 1
+    },
+    {
+      "width": 120,
+      "layout": "implicit",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1390.879315091297,
+      "status": "failed",
+      "stage": "compile",
+      "error_type": "InternalError",
+      "compiler": "baseline",
+      "sample": 2
+    },
+    {
+      "width": 120,
+      "layout": "guarded",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1392.85031799227,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 0
+      },
+      "graph_latency_us": [
+        1.8943999707698822,
+        1.5360000729560852,
+        1.525759994983673,
+        1.515520066022873,
+        1.515520066022873,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.4950400590896606
+      ],
+      "compiler": "baseline",
+      "sample": 0
+    },
+    {
+      "width": 120,
+      "layout": "guarded",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1368.967241840437,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 0
+      },
+      "graph_latency_us": [
+        1.8227200210094452,
+        1.515520066022873,
+        1.4847999811172485,
+        1.4847999811172485,
+        1.4745600521564484,
+        1.4745600521564484,
+        1.4643199741840363,
+        1.4643199741840363,
+        1.4643199741840363,
+        1.4643199741840363
+      ],
+      "compiler": "baseline",
+      "sample": 1
+    },
+    {
+      "width": 120,
+      "layout": "guarded",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1273.1000010389835,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 0
+      },
+      "graph_latency_us": [
+        1.6998399794101715,
+        1.4950400590896606,
+        1.4745600521564484,
+        1.4745600521564484,
+        1.4643199741840363,
+        1.4643199741840363,
+        1.4643199741840363,
+        1.4643199741840363,
+        1.4643199741840363,
+        1.454080045223236
+      ],
+      "compiler": "baseline",
+      "sample": 2
+    },
+    {
+      "width": 127,
+      "layout": "implicit",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1433.9667069725692,
+      "status": "failed",
+      "stage": "compile",
+      "error_type": "InternalError",
+      "compiler": "baseline",
+      "sample": 0
+    },
+    {
+      "width": 127,
+      "layout": "implicit",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1573.9878960885108,
+      "status": "failed",
+      "stage": "compile",
+      "error_type": "InternalError",
+      "compiler": "baseline",
+      "sample": 1
+    },
+    {
+      "width": 127,
+      "layout": "implicit",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1550.1205991022289,
+      "status": "failed",
+      "stage": "compile",
+      "error_type": "InternalError",
+      "compiler": "baseline",
+      "sample": 2
+    },
+    {
+      "width": 127,
+      "layout": "guarded",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1475.9808001108468,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 0
+      },
+      "graph_latency_us": [
+        1.8432000279426575,
+        1.525759994983673,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4847999811172485,
+        1.5052799880504608
+      ],
+      "compiler": "baseline",
+      "sample": 0
+    },
+    {
+      "width": 127,
+      "layout": "guarded",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1251.6908890102059,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 0
+      },
+      "graph_latency_us": [
+        1.884160041809082,
+        1.5052799880504608,
+        1.4643199741840363,
+        1.4745600521564484,
+        1.4643199741840363,
+        1.4643199741840363,
+        1.454080045223236,
+        1.454080045223236,
+        1.4643199741840363,
+        1.4643199741840363
+      ],
+      "compiler": "baseline",
+      "sample": 1
+    },
+    {
+      "width": 127,
+      "layout": "guarded",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1418.2229510042816,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 0
+      },
+      "graph_latency_us": [
+        1.9251200556755066,
+        1.5564799308776855,
+        1.515520066022873,
+        1.515520066022873,
+        1.5052799880504608,
+        1.515520066022873,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.5052799880504608,
+        1.4950400590896606
+      ],
+      "compiler": "baseline",
+      "sample": 2
+    },
+    {
+      "width": 128,
+      "layout": "implicit",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1375.9641859214753,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 0.0000011920928955078125
+      },
+      "graph_latency_us": [
+        1.955839991569519,
+        1.59743994474411,
+        1.5769599378108978,
+        1.5667200088500977,
+        1.5769599378108978,
+        1.5564799308776855,
+        1.5667200088500977,
+        1.5667200088500977,
+        1.5667200088500977,
+        1.5667200088500977
+      ],
+      "compiler": "baseline",
+      "sample": 0
+    },
+    {
+      "width": 128,
+      "layout": "implicit",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1265.5081159900874,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 0.0000011920928955078125
+      },
+      "graph_latency_us": [
+        1.955839991569519,
+        1.58720001578331,
+        1.5667200088500977,
+        1.58720001578331,
+        1.5360000729560852,
+        1.5360000729560852,
+        1.525759994983673,
+        1.525759994983673,
+        1.525759994983673,
+        1.525759994983673
+      ],
+      "compiler": "baseline",
+      "sample": 1
+    },
+    {
+      "width": 128,
+      "layout": "implicit",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1229.9603938590735,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 0.0000011920928955078125
+      },
+      "graph_latency_us": [
+        1.884160041809082,
+        1.59743994474411,
+        1.5769599378108978,
+        1.5667200088500977,
+        1.5564799308776855,
+        1.58720001578331,
+        1.58720001578331,
+        1.5462400019168854,
+        1.5462400019168854,
+        1.5462400019168854
+      ],
+      "compiler": "baseline",
+      "sample": 2
+    },
+    {
+      "width": 128,
+      "layout": "warp",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1366.734747076407,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 2.384185791015625e-7
+      },
+      "graph_latency_us": [
+        1.8227200210094452,
+        1.5052799880504608,
+        1.4745600521564484,
+        1.4643199741840363,
+        1.454080045223236,
+        1.454080045223236,
+        1.454080045223236,
+        1.454080045223236,
+        1.454080045223236,
+        1.454080045223236
+      ],
+      "compiler": "baseline",
+      "sample": 0
+    },
+    {
+      "width": 128,
+      "layout": "warp",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1374.2749821394682,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 2.384185791015625e-7
+      },
+      "graph_latency_us": [
+        1.8432000279426575,
+        1.525759994983673,
+        1.515520066022873,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.5052799880504608
+      ],
+      "compiler": "baseline",
+      "sample": 1
+    },
+    {
+      "width": 128,
+      "layout": "warp",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1344.2297521978617,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 2.384185791015625e-7
+      },
+      "graph_latency_us": [
+        1.8329599499702454,
+        1.5462400019168854,
+        1.515520066022873,
+        1.515520066022873,
+        1.6896000504493713,
+        1.525759994983673,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.4950400590896606
+      ],
+      "compiler": "baseline",
+      "sample": 2
+    },
+    {
+      "width": 256,
+      "layout": "implicit",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1380.968333920464,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 0
+      },
+      "graph_latency_us": [
+        1.9353599846363068,
+        1.58720001578331,
+        1.5769599378108978,
+        1.5667200088500977,
+        1.5667200088500977,
+        1.5564799308776855,
+        1.5564799308776855,
+        1.5564799308776855,
+        1.5564799308776855,
+        1.5564799308776855
+      ],
+      "compiler": "baseline",
+      "sample": 0
+    },
+    {
+      "width": 256,
+      "layout": "implicit",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1337.4065421521664,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 0
+      },
+      "graph_latency_us": [
+        1.9251200556755066,
+        1.59743994474411,
+        1.5769599378108978,
+        1.5667200088500977,
+        1.5667200088500977,
+        1.6179199516773224,
+        1.5564799308776855,
+        1.5564799308776855,
+        1.5564799308776855,
+        1.5564799308776855
+      ],
+      "compiler": "baseline",
+      "sample": 1
+    },
+    {
+      "width": 256,
+      "layout": "implicit",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1363.8047280255705,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 0
+      },
+      "graph_latency_us": [
+        1.9660800695419312,
+        1.59743994474411,
+        1.5769599378108978,
+        1.5564799308776855,
+        1.5564799308776855,
+        1.5564799308776855,
+        1.5564799308776855,
+        1.5564799308776855,
+        1.5667200088500977,
+        1.5667200088500977
+      ],
+      "compiler": "baseline",
+      "sample": 2
+    },
+    {
+      "width": 256,
+      "layout": "warp",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1343.34762301296,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 0.0000019073486328125
+      },
+      "graph_latency_us": [
+        1.8329599499702454,
+        1.5462400019168854,
+        1.525759994983673,
+        1.515520066022873,
+        1.515520066022873,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.5052799880504608
+      ],
+      "compiler": "baseline",
+      "sample": 0
+    },
+    {
+      "width": 256,
+      "layout": "warp",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1337.173128966242,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 0.0000019073486328125
+      },
+      "graph_latency_us": [
+        1.884160041809082,
+        1.5462400019168854,
+        1.5360000729560852,
+        1.515520066022873,
+        1.515520066022873,
+        1.515520066022873,
+        1.5052799880504608,
+        1.515520066022873,
+        1.525759994983673,
+        1.515520066022873
+      ],
+      "compiler": "baseline",
+      "sample": 1
+    },
+    {
+      "width": 256,
+      "layout": "warp",
+      "compiler_sha256": "4d3d01e1fccf82896ab7b0ce79bde14a83dcfbacd72da2169665be563d041e21",
+      "compile_ms": 1247.9772991500795,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0,
+        "ones": 0,
+        "random": 0.0000019073486328125
+      },
+      "graph_latency_us": [
+        1.9046400487422943,
+        1.5052799880504608,
+        1.4745600521564484,
+        1.4643199741840363,
+        1.4643199741840363,
+        1.454080045223236,
+        1.4643199741840363,
+        1.4643199741840363,
+        1.454080045223236,
+        1.4643199741840363
+      ],
+      "compiler": "baseline",
+      "sample": 2
+    }
+  ],
+  "summary": [
+    {
+      "width": 96,
+      "compiler": "baseline",
+      "layout": "implicit",
+      "passed": 0,
+      "total": 3
+    },
+    {
+      "width": 96,
+      "compiler": "baseline",
+      "layout": "warp",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1357.3473358992487,
+      "latency_median_us": 1.5052799880504608
+    },
+    {
+      "width": 100,
+      "compiler": "baseline",
+      "layout": "implicit",
+      "passed": 0,
+      "total": 3
+    },
+    {
+      "width": 100,
+      "compiler": "baseline",
+      "layout": "guarded",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1394.80143901892,
+      "latency_median_us": 1.5001600235700607
+    },
+    {
+      "width": 120,
+      "compiler": "baseline",
+      "layout": "implicit",
+      "passed": 0,
+      "total": 3
+    },
+    {
+      "width": 120,
+      "compiler": "baseline",
+      "layout": "guarded",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1368.967241840437,
+      "latency_median_us": 1.4745600521564484
+    },
+    {
+      "width": 127,
+      "compiler": "baseline",
+      "layout": "implicit",
+      "passed": 0,
+      "total": 3
+    },
+    {
+      "width": 127,
+      "compiler": "baseline",
+      "layout": "guarded",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1418.2229510042816,
+      "latency_median_us": 1.4950400590896606
+    },
+    {
+      "width": 128,
+      "compiler": "baseline",
+      "layout": "implicit",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1265.5081159900874,
+      "latency_median_us": 1.5667200088500977
+    },
+    {
+      "width": 128,
+      "compiler": "baseline",
+      "layout": "warp",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1366.734747076407,
+      "latency_median_us": 1.5052799880504608
+    },
+    {
+      "width": 256,
+      "compiler": "baseline",
+      "layout": "implicit",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1363.8047280255705,
+      "latency_median_us": 1.5615999698638916
+    },
+    {
+      "width": 256,
+      "compiler": "baseline",
+      "layout": "warp",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1337.173128966242,
+      "latency_median_us": 1.5104000270366669
+    }
+  ]
+}

@@ -16,7 +16,18 @@
   },
   "block_sizes": {"256": "pass", "64": "expected_failure"},
   "matrix_2x100": {"copy": "expected_failure", "elementwise": "expected_failure", "reduce_axis_0": "compile_failure", "reduce_axis_1": "compile_failure"},
-  "sanitizer": {"widths": [100, 120, 127], "memcheck_errors": 0, "racecheck_errors": 0, "racecheck_hazards": 0},
-  "layout_suite": {"passed": 386, "skipped": 4, "expected_failures": 5, "baseline_failures": 2},
+  "sanitizer": {"widths": [100, 120, 127], "memcheck_errors": 0, "racecheck_errors": 0, "racecheck_hazards": 0, "interleaved_width_100_cases": 5},
+  "layout_suite": {
+    "collected": 421,
+    "passed": 408,
+    "skipped": 4,
+    "expected_failures": 7,
+    "baseline_failures": 2,
+    "expected_failure_breakdown": {
+      "ragged_sum_64_threads_widths_100_120_127": 3,
+      "matrix_2x100_copy_and_elementwise": 2,
+      "matrix_2x100_reduction_axes_0_and_1": 2
+    }
+  },
   "reduction_suite": {"passed": 142, "skipped": 13}
 }

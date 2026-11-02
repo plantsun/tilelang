@@ -1,0 +1,1089 @@
+{
+  "device": "A100",
+  "graph_iterations": 100,
+  "timing_repeats": 10,
+  "samples": [
+    {
+      "width": 96,
+      "layout": "implicit",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1269.251228775829,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.7203199863433838,
+        1.5052799880504608,
+        1.4745600521564484,
+        1.4847999811172485,
+        1.4745600521564484,
+        1.4745600521564484,
+        1.4643199741840363,
+        1.4643199741840363,
+        1.4745600521564484,
+        1.4745600521564484
+      ],
+      "compiler": "patched",
+      "sample": 0
+    },
+    {
+      "width": 96,
+      "layout": "implicit",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1378.1657279469073,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.8636800348758698,
+        1.5360000729560852,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4847999811172485,
+        1.4847999811172485,
+        1.5052799880504608,
+        1.4847999811172485
+      ],
+      "compiler": "patched",
+      "sample": 1
+    },
+    {
+      "width": 96,
+      "layout": "implicit",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1371.560542145744,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.8329599499702454,
+        1.515520066022873,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.515520066022873,
+        1.4950400590896606,
+        1.5052799880504608,
+        1.4950400590896606
+      ],
+      "compiler": "patched",
+      "sample": 2
+    },
+    {
+      "width": 96,
+      "layout": "warp",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1324.0772739518434,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.8432000279426575,
+        1.525759994983673,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.515520066022873,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4950400590896606
+      ],
+      "compiler": "patched",
+      "sample": 0
+    },
+    {
+      "width": 96,
+      "layout": "warp",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1335.0677948910743,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.884160041809082,
+        1.5360000729560852,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.4950400590896606
+      ],
+      "compiler": "patched",
+      "sample": 1
+    },
+    {
+      "width": 96,
+      "layout": "warp",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1337.8429908771068,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.9968000054359436,
+        1.5360000729560852,
+        1.4950400590896606,
+        1.4745600521564484,
+        1.4745600521564484,
+        1.4745600521564484,
+        1.4745600521564484,
+        1.4643199741840363,
+        1.4847999811172485,
+        1.4745600521564484
+      ],
+      "compiler": "patched",
+      "sample": 2
+    },
+    {
+      "width": 100,
+      "layout": "implicit",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1353.3428099472076,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 9.5367431640625e-07
+      },
+      "graph_latency_us": [
+        1.8534399569034576,
+        1.5360000729560852,
+        1.515520066022873,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.5052799880504608
+      ],
+      "compiler": "patched",
+      "sample": 0
+    },
+    {
+      "width": 100,
+      "layout": "implicit",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1323.0232731439173,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 9.5367431640625e-07
+      },
+      "graph_latency_us": [
+        1.8943999707698822,
+        1.515520066022873,
+        1.515520066022873,
+        1.4950400590896606,
+        1.4847999811172485,
+        1.4847999811172485,
+        1.4847999811172485,
+        1.4950400590896606,
+        1.4847999811172485,
+        1.4847999811172485
+      ],
+      "compiler": "patched",
+      "sample": 1
+    },
+    {
+      "width": 100,
+      "layout": "implicit",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1342.1020859386772,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 9.5367431640625e-07
+      },
+      "graph_latency_us": [
+        1.812479943037033,
+        1.525759994983673,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4847999811172485,
+        1.4847999811172485,
+        1.5052799880504608,
+        1.4745600521564484,
+        1.4950400590896606,
+        1.4847999811172485
+      ],
+      "compiler": "patched",
+      "sample": 2
+    },
+    {
+      "width": 100,
+      "layout": "guarded",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1374.1954199504107,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 9.5367431640625e-07
+      },
+      "graph_latency_us": [
+        2.088959962129593,
+        1.5564799308776855,
+        1.5360000729560852,
+        1.525759994983673,
+        1.515520066022873,
+        1.5052799880504608,
+        1.515520066022873,
+        1.515520066022873,
+        1.5052799880504608,
+        1.5052799880504608
+      ],
+      "compiler": "patched",
+      "sample": 0
+    },
+    {
+      "width": 100,
+      "layout": "guarded",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1333.0535001587123,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 9.5367431640625e-07
+      },
+      "graph_latency_us": [
+        1.9046400487422943,
+        1.5462400019168854,
+        1.525759994983673,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.515520066022873,
+        1.5052799880504608
+      ],
+      "compiler": "patched",
+      "sample": 1
+    },
+    {
+      "width": 100,
+      "layout": "guarded",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1346.6228628531098,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 9.5367431640625e-07
+      },
+      "graph_latency_us": [
+        1.9046400487422943,
+        1.5360000729560852,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.515520066022873,
+        1.4950400590896606,
+        1.5462400019168854,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4950400590896606
+      ],
+      "compiler": "patched",
+      "sample": 2
+    },
+    {
+      "width": 120,
+      "layout": "implicit",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1321.6032430063933,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.87391996383667,
+        1.5360000729560852,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.4847999811172485,
+        1.4950400590896606,
+        1.4950400590896606
+      ],
+      "compiler": "patched",
+      "sample": 0
+    },
+    {
+      "width": 120,
+      "layout": "implicit",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1313.4627011604607,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.8943999707698822,
+        1.5462400019168854,
+        1.515520066022873,
+        1.4950400590896606,
+        1.515520066022873,
+        1.5052799880504608,
+        1.5360000729560852,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.5052799880504608
+      ],
+      "compiler": "patched",
+      "sample": 1
+    },
+    {
+      "width": 120,
+      "layout": "implicit",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1343.4714491013438,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.87391996383667,
+        1.5360000729560852,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.5052799880504608,
+        1.4847999811172485,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.5052799880504608,
+        1.4950400590896606
+      ],
+      "compiler": "patched",
+      "sample": 2
+    },
+    {
+      "width": 120,
+      "layout": "guarded",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1324.7301019728184,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.9763199985027313,
+        1.525759994983673,
+        1.4950400590896606,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.4847999811172485,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4950400590896606
+      ],
+      "compiler": "patched",
+      "sample": 0
+    },
+    {
+      "width": 120,
+      "layout": "guarded",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1364.8794980254024,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.9456000626087189,
+        1.525759994983673,
+        1.515520066022873,
+        1.4950400590896606,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.5052799880504608
+      ],
+      "compiler": "patched",
+      "sample": 1
+    },
+    {
+      "width": 120,
+      "layout": "guarded",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1320.3404450323433,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.87391996383667,
+        1.525759994983673,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4847999811172485,
+        1.5052799880504608
+      ],
+      "compiler": "patched",
+      "sample": 2
+    },
+    {
+      "width": 127,
+      "layout": "implicit",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1415.7048978377134,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.8534399569034576,
+        1.515520066022873,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.4745600521564484,
+        1.4745600521564484,
+        1.4745600521564484,
+        1.4745600521564484,
+        1.4745600521564484,
+        1.4745600521564484
+      ],
+      "compiler": "patched",
+      "sample": 0
+    },
+    {
+      "width": 127,
+      "layout": "implicit",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1407.2964878287166,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.884160041809082,
+        1.525759994983673,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.5052799880504608
+      ],
+      "compiler": "patched",
+      "sample": 1
+    },
+    {
+      "width": 127,
+      "layout": "implicit",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1278.119014808908,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.9046400487422943,
+        1.4950400590896606,
+        1.4643199741840363,
+        1.4643199741840363,
+        1.4745600521564484,
+        1.4643199741840363,
+        1.454080045223236,
+        1.443839967250824,
+        1.4643199741840363,
+        1.4643199741840363
+      ],
+      "compiler": "patched",
+      "sample": 2
+    },
+    {
+      "width": 127,
+      "layout": "guarded",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1218.4545840136707,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.8534399569034576,
+        1.515520066022873,
+        1.4847999811172485,
+        1.4847999811172485,
+        1.4847999811172485,
+        1.4745600521564484,
+        1.4745600521564484,
+        1.4643199741840363,
+        1.4745600521564484,
+        1.5052799880504608
+      ],
+      "compiler": "patched",
+      "sample": 0
+    },
+    {
+      "width": 127,
+      "layout": "guarded",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1226.3776601757854,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.87391996383667,
+        1.59743994474411,
+        1.4847999811172485,
+        1.4847999811172485,
+        1.4745600521564484,
+        1.454080045223236,
+        1.4643199741840363,
+        1.454080045223236,
+        1.454080045223236,
+        1.4643199741840363
+      ],
+      "compiler": "patched",
+      "sample": 1
+    },
+    {
+      "width": 127,
+      "layout": "guarded",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1322.3533849231899,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.884160041809082,
+        1.525759994983673,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4847999811172485,
+        1.4950400590896606,
+        1.4847999811172485,
+        1.4950400590896606
+      ],
+      "compiler": "patched",
+      "sample": 2
+    },
+    {
+      "width": 128,
+      "layout": "implicit",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1313.7358708772808,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 1.1920928955078125e-06
+      },
+      "graph_latency_us": [
+        1.9046400487422943,
+        1.6076800227165222,
+        1.58720001578331,
+        1.5769599378108978,
+        1.58720001578331,
+        1.58720001578331,
+        1.5769599378108978,
+        1.5667200088500977,
+        1.5769599378108978,
+        1.5769599378108978
+      ],
+      "compiler": "patched",
+      "sample": 0
+    },
+    {
+      "width": 128,
+      "layout": "implicit",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1242.0837900135666,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 1.1920928955078125e-06
+      },
+      "graph_latency_us": [
+        1.955839991569519,
+        1.6383999586105347,
+        1.5769599378108978,
+        1.5769599378108978,
+        1.5667200088500977,
+        1.5564799308776855,
+        1.5769599378108978,
+        1.5564799308776855,
+        1.5564799308776855,
+        1.5564799308776855
+      ],
+      "compiler": "patched",
+      "sample": 1
+    },
+    {
+      "width": 128,
+      "layout": "implicit",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1245.5586069263518,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 1.1920928955078125e-06
+      },
+      "graph_latency_us": [
+        1.9251200556755066,
+        1.59743994474411,
+        1.5769599378108978,
+        1.5667200088500977,
+        1.5667200088500977,
+        1.58720001578331,
+        1.5462400019168854,
+        1.5360000729560852,
+        1.5462400019168854,
+        1.5360000729560852
+      ],
+      "compiler": "patched",
+      "sample": 2
+    },
+    {
+      "width": 128,
+      "layout": "warp",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1272.5502199027687,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 2.384185791015625e-07
+      },
+      "graph_latency_us": [
+        1.8432000279426575,
+        1.5462400019168854,
+        1.515520066022873,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4847999811172485,
+        1.4950400590896606,
+        1.4950400590896606
+      ],
+      "compiler": "patched",
+      "sample": 0
+    },
+    {
+      "width": 128,
+      "layout": "warp",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1273.7842148635536,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 2.384185791015625e-07
+      },
+      "graph_latency_us": [
+        1.8329599499702454,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.4745600521564484,
+        1.4745600521564484,
+        1.4847999811172485,
+        1.4745600521564484,
+        1.4950400590896606,
+        1.5360000729560852,
+        1.5052799880504608
+      ],
+      "compiler": "patched",
+      "sample": 1
+    },
+    {
+      "width": 128,
+      "layout": "warp",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1257.740095956251,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 2.384185791015625e-07
+      },
+      "graph_latency_us": [
+        1.8534399569034576,
+        1.525759994983673,
+        1.5052799880504608,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.5052799880504608,
+        1.4847999811172485,
+        1.4847999811172485,
+        1.4950400590896606,
+        1.4847999811172485
+      ],
+      "compiler": "patched",
+      "sample": 2
+    },
+    {
+      "width": 256,
+      "layout": "implicit",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1334.2529409565032,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        1.9456000626087189,
+        1.58720001578331,
+        1.5564799308776855,
+        1.5462400019168854,
+        1.5462400019168854,
+        1.5360000729560852,
+        1.5564799308776855,
+        1.5462400019168854,
+        1.5462400019168854,
+        1.5462400019168854
+      ],
+      "compiler": "patched",
+      "sample": 0
+    },
+    {
+      "width": 256,
+      "layout": "implicit",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1260.9664970077574,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        2.017280012369156,
+        1.6179199516773224,
+        1.5769599378108978,
+        1.5667200088500977,
+        1.5564799308776855,
+        1.5667200088500977,
+        1.5564799308776855,
+        1.5564799308776855,
+        1.5769599378108978,
+        1.5667200088500977
+      ],
+      "compiler": "patched",
+      "sample": 1
+    },
+    {
+      "width": 256,
+      "layout": "implicit",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1285.4878949001431,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 0.0
+      },
+      "graph_latency_us": [
+        2.017280012369156,
+        1.59743994474411,
+        1.6076800227165222,
+        1.5564799308776855,
+        1.5462400019168854,
+        1.5360000729560852,
+        1.5462400019168854,
+        1.5462400019168854,
+        1.5360000729560852,
+        1.5462400019168854
+      ],
+      "compiler": "patched",
+      "sample": 2
+    },
+    {
+      "width": 256,
+      "layout": "warp",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1252.5926029775292,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 1.9073486328125e-06
+      },
+      "graph_latency_us": [
+        1.8943999707698822,
+        1.5769599378108978,
+        1.515520066022873,
+        1.4950400590896606,
+        1.4847999811172485,
+        1.4847999811172485,
+        1.4950400590896606,
+        1.4847999811172485,
+        1.4643199741840363,
+        1.4847999811172485
+      ],
+      "compiler": "patched",
+      "sample": 0
+    },
+    {
+      "width": 256,
+      "layout": "warp",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1271.0833179298788,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 1.9073486328125e-06
+      },
+      "graph_latency_us": [
+        1.884160041809082,
+        1.5052799880504608,
+        1.4847999811172485,
+        1.4950400590896606,
+        1.4950400590896606,
+        1.4745600521564484,
+        1.4745600521564484,
+        1.4847999811172485,
+        1.4745600521564484,
+        1.4847999811172485
+      ],
+      "compiler": "patched",
+      "sample": 1
+    },
+    {
+      "width": 256,
+      "layout": "warp",
+      "compiler_sha256": "7390bd5f87da705c5520a8d3e7459e8182b0fbbc8ef1357a394b8685a92f9068",
+      "compile_ms": 1245.7004128955305,
+      "stage": "execute",
+      "status": "pass",
+      "max_absolute_error": {
+        "arange": 0.0,
+        "ones": 0.0,
+        "random": 1.9073486328125e-06
+      },
+      "graph_latency_us": [
+        1.8227200210094452,
+        1.5052799880504608,
+        1.4847999811172485,
+        1.4745600521564484,
+        1.4745600521564484,
+        1.4643199741840363,
+        1.5052799880504608,
+        1.5052799880504608,
+        1.4847999811172485,
+        1.4847999811172485
+      ],
+      "compiler": "patched",
+      "sample": 2
+    }
+  ],
+  "summary": [
+    {
+      "width": 96,
+      "compiler": "patched",
+      "layout": "implicit",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1371.560542145744,
+      "latency_median_us": 1.5001600235700607
+    },
+    {
+      "width": 96,
+      "compiler": "patched",
+      "layout": "warp",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1335.0677948910743,
+      "latency_median_us": 1.5052799880504608
+    },
+    {
+      "width": 100,
+      "compiler": "patched",
+      "layout": "implicit",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1342.1020859386772,
+      "latency_median_us": 1.4950400590896606
+    },
+    {
+      "width": 100,
+      "compiler": "patched",
+      "layout": "guarded",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1346.6228628531098,
+      "latency_median_us": 1.5052799880504608
+    },
+    {
+      "width": 120,
+      "compiler": "patched",
+      "layout": "implicit",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1321.6032430063933,
+      "latency_median_us": 1.5001600235700607
+    },
+    {
+      "width": 120,
+      "compiler": "patched",
+      "layout": "guarded",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1324.7301019728184,
+      "latency_median_us": 1.5001600235700607
+    },
+    {
+      "width": 127,
+      "compiler": "patched",
+      "layout": "implicit",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1407.2964878287166,
+      "latency_median_us": 1.4745600521564484
+    },
+    {
+      "width": 127,
+      "compiler": "patched",
+      "layout": "guarded",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1226.3776601757854,
+      "latency_median_us": 1.4847999811172485
+    },
+    {
+      "width": 128,
+      "compiler": "patched",
+      "layout": "implicit",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1245.5586069263518,
+      "latency_median_us": 1.5718399733304977
+    },
+    {
+      "width": 128,
+      "compiler": "patched",
+      "layout": "warp",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1272.5502199027687,
+      "latency_median_us": 1.4950400590896606
+    },
+    {
+      "width": 256,
+      "compiler": "patched",
+      "layout": "implicit",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1285.4878949001431,
+      "latency_median_us": 1.5462400019168854
+    },
+    {
+      "width": 256,
+      "compiler": "patched",
+      "layout": "warp",
+      "passed": 3,
+      "total": 3,
+      "compile_median_ms": 1252.5926029775292,
+      "latency_median_us": 1.4847999811172485
+    }
+  ]
+}
